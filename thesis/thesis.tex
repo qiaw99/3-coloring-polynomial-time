@@ -1,0 +1,123 @@
+\documentclass[serif,article,noparskip, en]{agse-thesis}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{indentfirst}
+\usepackage{float}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+%Math and theorems
+\usepackage{amssymb}
+\usepackage{amsthm}
+%Makes stuff looks nice
+\usepackage{microtype}
+%Adapts the ratios of the page
+\usepackage[headheight=13.6pt, top=3cm, bottom=2.6cm, left=3cm, right=3cm]{geometry}
+%adds the nice header and footer
+\usepackage{fancyhdr}
+%Allows graphics
+\usepackage{graphicx}
+%long Tables
+\usepackage{tabularx}
+%nice quotes
+\usepackage{csquotes}
+%allows to restrict floats to certain regions
+\usepackage{placeins}
+%counts the lines
+\usepackage[displaymath, mathlines]{lineno}
+%clickable references
+\usepackage{hyperref}
+%references in the text
+\usepackage[capitalize]{cleveref}
+%bibilgraphy
+\usepackage[backend=biber]{biblatex}
+\usepackage{tikz} 
+\usepackage{caption}
+\usepackage{graphicx, subfig}
+
+% Global parameters, replace with actual values.
+\newcommand{\thesisTitle}{Three-coloring triangle-free planar graphs in linear time}
+% -> You may use \par (but not \\) to format the title. If you do so, you'll
+%    need to manually set the 'pdftitle' attribute below.
+\newcommand{\studentName}{Qianli Wang}
+%===============================================================================
+\setlength{\parindent}{2em}
+%Specifies theorem environments
+%\newtheorem{theorem}[Satz]{Theorem}
+\newtheorem{claim}{Claim}
+%\newtheorem{corollary}{Conclusion}
+%\newtheorem{lemma}{Lemma}
+\newtheorem{observation}{Observation}
+\theoremstyle{definition}
+%\newtheorem{definition}{Definition}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+%Allows correct references to theorem environments
+\crefname{theorem}{Satz}{Sätze}
+\crefname{corollary}{Folgerung}{Folgerungen}
+\crefname{lemma}{Lemma}{Lemmata}
+\crefname{observation}{Beobachtung}{Beobachtungen}
+\crefname{definition}{Definition}{Definitionen}
+\crefname{figure}{Figure}{Figure}
+\hypersetup{pdftitle={\thesisTitle}}
+\hypersetup{pdfauthor={\studentName}}
+
+% Blind texts, for demonstration only, not part of the actual template
+\usepackage{lipsum}
+
+\begin{document}
+
+\coverpage[
+    student/id=5338778,
+    student/mail=qiaw99@zedat.fu-berlin.de,
+    thesis/type=Bachelor Thesis,            % optional, default: Bachelorarbeit
+    thesis/group={Work group theoretical informatics},
+                                           % optional, default: AGSE
+    thesis/advisor={Prof. Dr. László Kozma},           % optional
+    thesis/examiner={Prof. Dr. László Kozma},
+    thesis/examiner/2={Prof. Dr. Bob Bär}, % optional
+    thesis/date=\today,                    % optional, default: \today
+   %title/size=\LARGE,      % set this value to overwrite automatic font size
+   %abstract/separate       % toggle this to move the abstract to its own page
+]
+{ % Your abstract here:
+    Test for abstract
+}
+
+\include{declaration}
+
+\cleardoublepage
+
+\tableofcontents
+
+\cleardoublepage
+
+\pagestyle{fancy}
+
+\input{1_introduction}
+\input{2_fundamentals}
+\input{3_main}
+\input{4_conclusion}
+
+% Refers to file `bibliography.bib`
+\bibliography{bibliography}
+
+\appendix
+\include{5_appendix}
+
+\end{document}
