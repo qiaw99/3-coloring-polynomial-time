@@ -36,6 +36,10 @@ A cycle $C$ is a \textit{facial cycle} in $G$ if it bounds a face in a component
 \end{figure}
 \end{definition}
 
+\begin{observation}
+A cycle is either a face or a separating cycle.
+\end{observation}
+
 \begin{definition}
 A cycle $C$ in a connected graph $G$ is a \textit{separating cycle} if the deletion of $C$ from $G$ results in a disconnected graph. \cite{THOMASSEN197857}
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
@@ -70,5 +74,5 @@ An \textit{induced path} in an undirected graph $G$ is a path that is an induced
 \end{definition}
 
 \subsection{The core idea}
-After knowing these beneficial definitions, we'll bring into totally five reducible configurations, also called \textit{multigrams}. With such multigrams, we can reduce the size of graph $G$ to have a smaller graph $G^{'}$ to be be colored by identifying some vertices (see definition in the next section). Meanwhile, although we get a smaller graph $G^{'}$, its coloring can be reconstructed to the coloring of $G$ in constant time. The algorithm detect recursively such multigrams with certain constraints so that the size of graph will always get smaller each time until it's so simple to find the corresponding coloring. Next, according to the resulted coloring, we can reconstruct the coloring of its previous graph step by step. In the end, we'll get the coloring of the input graph. 
+After knowing these beneficial definitions, we'll bring into totally five reducible configurations, also called \textit{multigrams}. With such multigrams, we can reduce the size of graph $G$ to have a smaller graph $G^{'}$ by identifying some vertices (see definition in the next section). Meanwhile, although we get a smaller graph $G^{'}$, its coloring can be reconstructed to the coloring of $G$ in constant time. The algorithm detects recursively such multigrams with certain constraints so that the size of graph will always get smaller each time until it's so simple to find the corresponding coloring. Next, according to the resulted coloring, we can reconstruct the coloring of its previous graph step by step. In the end, we'll get the proper coloring of the input graph. 
 
