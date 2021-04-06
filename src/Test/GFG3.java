@@ -1,6 +1,10 @@
 package Test;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Vector;
 
 public class GFG3 {
  
@@ -28,6 +32,15 @@ public class GFG3 {
     @SuppressWarnings("unchecked")
 	public static Vector<Integer>[] identifiedPairs = new Vector[N];
     public static int pairNumber = 0;
+    
+    /**
+     * Get the degree of certain vertex
+     * @param v
+     * @return number of neighbors
+     */
+    public static int getDegree(int v) {
+    	return adj[v].size();
+    }
     
     /**
      * Check whether a multigram is already contained 
@@ -81,6 +94,7 @@ public class GFG3 {
      * Detect all multigrams by 6 inner-loops
      */
     public static void detectMultigrams() {
+    	
     	int v;
     	for(v = 1; v < N; v++) {
 
@@ -174,19 +188,25 @@ public class GFG3 {
      */
     public static void printMultigrams() {
     	System.out.println("Tetragram: ");
-    	for(int i = 0; i < tetragramNumber; i++) {
-        	System.out.println(tetragram[i]);
+    	for(int i = 0; i < N; i++) {
+        	if(tetragram[i].size() != 0) {
+        		System.out.println(tetragram[i]);
+        	}
         }
     	
     	System.out.println("Pentagram: ");
-    	for(int i = 0; i < pentagramNumber; i++) {
-        	System.out.println(pentagram[i]);
-        }
+    	for(int i = 0; i < N; i++) {
+    		if(pentagram[i].size() != 0) {
+    			System.out.println(pentagram[i]);
+    		}
+		}
     	
     	System.out.println("Hexagram: ");
-    	for(int i = 0; i < hexagramNumber; i++) {
-        	System.out.println(hexagram[i]);
-        }
+    	for(int i = 0; i < N; i++) {
+    		if(hexagram[i].size() != 0) {
+    			System.out.println(hexagram[i]);
+    		}
+		}
     }
     
     
@@ -195,14 +215,16 @@ public class GFG3 {
      * @param u
      * @param v
      */
-    public static void identifyVertices(int u, int v) {
-    	Vector<Integer> tempIntegers = adj[u];
-    	tempIntegers.addAll(adj[v]);
+    @SuppressWarnings("unchecked")
+	public static void identifyVertices(int u, int v, int length) {
+    	Vector<Integer> tempIntegers = (Vector<Integer>) adj[u].clone();
+    	tempIntegers.addAll((Collection<? extends Integer>) adj[v].clone());
     	
     	// Get all distinct neighbors
     	Set<Integer> adjacentNeighborSet = new HashSet<Integer>();
     	for(int i : tempIntegers) {
-    		adjacentNeighborSet.add(i);
+    		if(!adjacentNeighborSet.contains(i))
+    			adjacentNeighborSet.add(i);
     	}
     	
     	// Add distinct neighbors to u
@@ -213,8 +235,69 @@ public class GFG3 {
     		if(!adj[u].contains(temp)) {
     			adj[u].add(temp);
     		}
-    		if(!adj[v].contains(temp)) {
-    			adj[v].add(temp);
+    	}
+    	handleNeighbors(u, v);
+    	adj[v].removeAllElements();	
+    	
+    	// store the removed vertices
+    	identifiedPairs[pairNumber] = new Vector<Integer>();
+    	identifiedPairs[pairNumber].add(u);
+    	identifiedPairs[pairNumber].add(v);
+    	pairNumber++;
+    	
+    	// recalculate the number of multigrams
+    	if(length == 4) {
+    		tetragramNumber -= 1;
+    		removeMultigrams(u ,v, 4);
+    	} else if(length == 5) {
+    		pentagramNumber -= 1;
+    		removeMultigrams(u ,v, 5);
+    	} else {
+    		hexagramNumber -= 1;
+    		removeMultigrams(u ,v, 6);
+    	}
+    }
+    
+    /**
+     * Remove the multigrams in which vertices are identified
+     * @param u
+     * @param v
+     * @param length
+     */
+    public static void removeMultigrams(int u, int v, int length) {
+    	if(length == 4) {
+    		for(int i = 0; i < N; i++) {
+    			if(tetragram[i].contains(u) && tetragram[i].contains(v)) {
+    				tetragram[i].removeAllElements();
+    			}
+    		}
+    	} else if(length == 5) {
+    		for(int i = 0; i < N; i++) {
+    			if(pentagram[i].contains(u) && pentagram[i].contains(v)) {
+    				pentagram[i].removeAllElements();
+    			}
+    		}
+    	} else {
+    		for(int i = 0; i < N; i++) {
+    			if(hexagram[i].contains(u) && hexagram[i].contains(v)) {
+    				hexagram[i].removeAllElements();
+    			}
+    		}
+    	}
+    }
+    
+    /**
+     * Remove duplicate neighbors in adjacency list
+     * @param u
+     * @param v
+     */
+    public static void handleNeighbors(int u, int v) {
+    	for(int i = 0; i < N; i++) {
+    		if(adj[i].contains(v)) {
+    			adj[i].removeElement(v);
+    			if(!adj[i].contains(u)) {
+    				adj[i].add(u);
+    			}
     		}
     	}
     }
@@ -222,7 +305,7 @@ public class GFG3 {
     /**
      * Safety of tetragrams: there is no path from v_1 to v_3 at most three that is not part of tetragram
      * @param tetragramIntegers
-     * @return
+     * @return whether the tetragram is safe
      */
     public static boolean testSafeTetragram(Vector<Integer> tetragramIntegers) {
 		for(int i = 0; i < 2; i++) {
@@ -254,14 +337,23 @@ public class GFG3 {
     	return true;
     	
     }
- 
-    // Driver Code
-    @SuppressWarnings("unchecked")
-	public static void main(String[] args) {
- 
-        for (int i = 0; i < N; i++) {
+    
+    public static void getThreeColoring() {
+    	
+    }
+    
+    public static void initializeMultigrams() {
+    	for (int i = 0; i < N; i++) {
             adj[i] = new Vector<>();
         }
+    }
+    
+    /**
+     * Initialize adjacency lists, edges, multigrams and colorings
+     */
+    @SuppressWarnings("unchecked")
+	public static void initialize() {
+    	initializeMultigrams();
  
         // add edges
         addEdge(1, 2);
@@ -293,20 +385,47 @@ public class GFG3 {
             hexagram[i] = new Vector<>();
             identifiedPairs[i] = new Vector<>();
         }
+    }
  
-
+    // Driver Code
+	public static void main(String[] args) {
+		initialize();
+ 
+        System.out.println("Before identifying: ");
         detectMultigrams();
-        identifyVertices(1, 3);
-        detectMultigrams();
-        
+        printMultigrams();
         System.out.println("Number of tetragram: " + tetragramNumber);
         System.out.println("Number of pentagram: " + pentagramNumber);
         System.out.println("Number of hexagram: " + hexagramNumber);
         
+        System.out.println();
+        System.out.println("After identifying 1, 3: ");
+        identifyVertices(1, 3, 6);
+        detectMultigrams();
         printMultigrams();
+        System.out.println("Number of tetragram: " + tetragramNumber);
+        System.out.println("Number of pentagram: " + pentagramNumber);
+        System.out.println("Number of hexagram: " + hexagramNumber);
+        
+        System.out.println();
+        System.out.println("After identifying 8, 10: ");
+        identifyVertices(8, 10, 4);
+        detectMultigrams();
+        printMultigrams();
+        
+        System.out.println("Number of tetragram: " + tetragramNumber);
+        System.out.println("Number of pentagram: " + pentagramNumber);
+        System.out.println("Number of hexagram: " + hexagramNumber);
+                
+//        System.out.println(adj[1]);
+//        System.out.println(adj[3]);
+//        System.out.println(adj[8]);
+//        System.out.println(adj[10]);
+        for(int i = 0; i < pairNumber; i++)
+        	System.out.println(identifiedPairs[i]);
         
         
     }
 }
+// TODO removed multigrams
 
-// TODO after identifying vertices, remove one of the identified vertex
