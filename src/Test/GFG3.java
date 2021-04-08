@@ -294,9 +294,8 @@ public class GFG3 {
     		tetragramNumber -= 1;
     		removeMultigrams(u, v, 4);
     	} else if(length == 5) {
-    		// TODO remove the following lines 
-    		pentagramNumber -= 1;
-    		removeMultigrams(u, v, 5);
+//    		pentagramNumber -= 1;
+//    		removeMultigrams(u, v, 5);
     	} else {
     		hexagramNumber -= 1;
     		removeMultigrams(u, v, 6);
@@ -320,6 +319,7 @@ public class GFG3 {
     		for(int i = 0; i < N; i++) {
     			if(pentagram[i].contains(u) && pentagram[i].contains(v)) {
     				pentagram[i].removeAllElements();
+    				break;
     			}
     		}
     	} else {
@@ -428,13 +428,13 @@ public class GFG3 {
 	public static int getNeighborInPentagram(Vector<Integer> pentagramVector, int i) {
     	Vector<Integer> tempIntegers = (Vector<Integer>) adj[pentagramVector.get(i)].clone();
 		   if(i != 0) {
-			   tempIntegers.remove(pentagramVector.get(i-1));
-			   tempIntegers.remove(pentagramVector.get(i+1));
-			   return pentagramVector.get(0);
+			   tempIntegers.removeElement(pentagramVector.get(i-1));
+			   tempIntegers.removeElement(pentagramVector.get(i+1));
+			   return tempIntegers.get(0);
 		   } else {
-			   tempIntegers.remove(pentagramVector.get(4));
-			   tempIntegers.remove(pentagramVector.get(i+1));
-			   return pentagramVector.get(0);
+			   tempIntegers.removeElement(pentagramVector.get(4));
+			   tempIntegers.removeElement(pentagramVector.get(i+1));
+			   return tempIntegers.get(0);
 		   }
     }
     
@@ -454,7 +454,7 @@ public class GFG3 {
 		int[] neighbors = new int[] {x_1, x_2, x_3, x_4};
 		
 		for(int i = 0; i < 3; i++) {
-			for(int j = 1; j < 4; j++) {
+			for(int j = i+1; j < 4; j++) {
 				if(neighbors[i] == neighbors[j] || adj[neighbors[i]].contains(neighbors[j])) {
 					return new int[] {-1};
 				}
@@ -471,8 +471,9 @@ public class GFG3 {
      * @return true/false
      */
     public static boolean secondConditionPentagram(Vector<Integer> pentagramVector, int[] neighbors) {
-    	int x_2 = neighbors[1];
-    	int v_5 = pentagramVector.lastElement();
+    	int x_2 = neighbors[0];
+     	int v_5 = pentagramVector.lastElement();
+    	int iterationCounter = 0;
     	
     	Iterator<Integer> sIterator = adj[v_5].iterator();
     	int s; 
@@ -495,31 +496,131 @@ public class GFG3 {
     					}
     				}
     			}
+    		} else {
+    			iterationCounter += 1;
+    			if(iterationCounter == adj[v_5].size()) {
+    				return true;
+    			}
     		}
     	}
     	
 		return true;
     }
     
-    // TODO
+    /**
+     * Check whether every path in G \ {v_1, v_2, v_3, v_4} of length at most three 
+     * from x_3 to x_4 has length exactly two 
+     * @param pentagramVector
+     * @param neighbors
+     * @return true/false
+     */
     public static boolean thirdConditionPentagram(Vector<Integer> pentagramVector, int[] neighbors) {
-    	return false;
+    	int x_3 = neighbors[2];
+    	int x_4 = neighbors[3];
+    	
+    	Iterator<Integer> sIterator = adj[x_3].iterator();
+    	Iterator<Integer> tIterator = adj[x_4].iterator();
+    	int s;
+    	int t;
+    	int iterationCounter = 0;
+    	while(sIterator.hasNext()) {
+    		s = sIterator.next();
+    		if(s != pentagramVector.get(0) && s != pentagramVector.get(1) && 
+    				s != pentagramVector.get(2) && s != pentagramVector.get(3)) {
+    			while(tIterator.hasNext()) {
+    				t = tIterator.next();
+    				if(t != pentagramVector.get(0) && t != pentagramVector.get(1) && 
+    	    				t != pentagramVector.get(2) && t != pentagramVector.get(3)) {
+    					if(adj[s].contains(t)) {
+    						return false;
+    					}
+    				}
+    			}
+    		} else {
+    			iterationCounter ++;
+    			if(iterationCounter == adj[x_3].size()) {
+    				return true;
+    			}
+    		}
+    	}
+    	
+    	return true;
     }
     
-    // TODO pentagram 12345 43215
-    public static boolean testSafePentagram(Vector<Integer> pentagramVector) {
+    /**
+     * Check three condition according to the definition of safety of pentagram
+     * @param pentagramVector
+     * @return
+     */
+    public static boolean testSafetyOfPentagram(Vector<Integer> pentagramVector) {
     	int[] neighbors = firstConditionPentagram(pentagramVector);
     	if(neighbors.length == 1) {
-    		
+    		return false;
     	} else {
-    		// TODO
     		if(secondConditionPentagram(pentagramVector, neighbors)) {
     			return thirdConditionPentagram(pentagramVector, neighbors);
     		} else {
     			return false;
     		}
     	}
-		return false;
+    }
+    
+    /**
+     * Get all vertices that need to be identified
+     * @param pentagramVector
+     * @return indices of identified vertices
+     */
+    @SuppressWarnings("unchecked")
+	public static int[] getSafePentagram(Vector<Integer> pentagramVector) {
+    	Vector<Integer> originalVector = pentagramVector;
+    	Vector<Integer> anotherVector = (Vector<Integer>) pentagramVector.clone();
+    	
+    	int first = anotherVector.get(0);
+    	int second = anotherVector.get(1);
+    	int third = anotherVector.get(2);
+    	int fourth = anotherVector.get(3);
+    	
+    	int[] neighbors;
+    	
+    	anotherVector.set(0, fourth);
+    	anotherVector.set(3, first);
+    	anotherVector.set(2, second);
+    	anotherVector.set(1, third);
+    	
+    	if(testSafetyOfPentagram(originalVector)) {
+    		neighbors = firstConditionPentagram(originalVector);
+    		return new int[] {neighbors[1], originalVector.get(4), neighbors[2], neighbors[3]};
+    	} else if(testSafetyOfPentagram(anotherVector)) {
+    		neighbors = firstConditionPentagram(anotherVector);
+    		return new int[] {neighbors[1], anotherVector.get(4), neighbors[2], neighbors[3]};
+    	} else {
+    		return null;
+    	}
+    }
+    
+    /**
+     * Identify x_2 with v_5, x_3 with x_4 and remove the identified pentagram
+     * @param pentagramVector
+     */
+    @SuppressWarnings("unchecked")
+	public static void identifyPentagram(Vector<Integer> pentagramVector) {
+    	Vector<Integer> storedPentagramIntegers = (Vector<Integer>) pentagramVector.clone();
+    	int[] identifiedVertices = getSafePentagram(pentagramVector);
+    	if(identifiedVertices != null) {
+	    	identifyVertices(identifiedVertices[0], identifiedVertices[1], 5);
+	    	identifyVertices(identifiedVertices[2], identifiedVertices[3], 5);
+	    	
+	    	pentagramNumber -= 1;
+			removeMultigrams(pentagramVector.get(0), pentagramVector.get(1), 5);
+			
+			// Remove v_1, v_2, v_3, v_4
+			Integer temp;
+			for(int i = 0; i < 4; i++) {
+				temp = storedPentagramIntegers.get(i);
+				adj[temp].removeAllElements();
+				adj[temp].add(temp);
+			}
+    	}
     }
     
     /**
@@ -538,11 +639,11 @@ public class GFG3 {
     		if(tetragramNumber != 0) {
     			identifyMultigram(tetragram[tetragramNumber - 1]);
     		} else if(pentagramNumber != 0) {
-    			// identifyMultigram(pentagram[tetragramNumber - 1]);
+    			identifyPentagram(pentagram[pentagramNumber - 1]);
     		} else {
     			identifyMultigram(hexagram[hexagramNumber - 1]);
     		}
-    		System.out.println("Identified vertices: " + identifiedPairs[iterations]);
+    		System.out.println("Identified vertices: " + identifiedPairs[iterations] + " in " + iterations + "-th iteration");
     		iterations += 1;
             detectMultigrams();
             printMultigrams();
@@ -561,6 +662,9 @@ public class GFG3 {
 //    	}
     }
     
+    /**
+     * Initialize all adjacency lists
+     */
     public static void initializeMultigrams() {
     	for (int i = 0; i < N; i++) {
             adj[i] = new Vector<>();
@@ -579,13 +683,19 @@ public class GFG3 {
         addEdge(2, 3);
         addEdge(3, 4);
         addEdge(4, 5);
-        addEdge(6, 5);
+//        addEdge(6, 5);
+//        addEdge(1, 6);
+//        addEdge(1, 7);
+//        addEdge(7, 8);
+//        addEdge(8, 9);
+//        addEdge(9, 10);
+//        addEdge(7, 10);
+        
+        addEdge(1, 5);
         addEdge(1, 6);
-        addEdge(1, 7);
-        addEdge(7, 8);
-        addEdge(8, 9);
-        addEdge(9, 10);
-        addEdge(7, 10);
+        addEdge(2, 7);
+        addEdge(3, 8);
+        addEdge(4, 9);
  
         // arrays required to color the
         // graph, store the parent of node
