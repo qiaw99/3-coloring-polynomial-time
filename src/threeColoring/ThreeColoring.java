@@ -10,7 +10,6 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.SerializationUtils;
 
-
 /**
  * 
  * @author Qianli Wang
@@ -21,7 +20,7 @@ import org.apache.commons.lang3.SerializationUtils;
  * @supervised Prof. Dr. László Kozma
  *
  */
-public class GFG5 {
+public class ThreeColoring {
  
     public static final int N = 13;
     
@@ -330,10 +329,6 @@ public class GFG5 {
     		}
     	}
     	handleNeighbors(u, v);
-    	//adj[v].removeAllElements();	
-    	
-    	// Self-connected
-    	//adj[v].add(v);
     	
     	// store the removed vertices
     	identifiedPairs[iterations] = new Vector<Integer>();
@@ -711,7 +706,6 @@ public class GFG5 {
 			for(int i = 0; i < 4; i++) {
 				temp = storedPentagramIntegers.get(i);
 				adj[temp].removeAllElements();
-				// adj[temp].add(temp);
 			}
 			
 			numberOfVertices -= 4;
@@ -775,61 +769,18 @@ public class GFG5 {
 		}
 	}
     
-    public static Vector<Integer>[] minimumDegreeOne(Vector<Integer>[] adjAfter) {
-    	Vector<Integer>[] resIntegers = new Vector[2];
-    	Vector<Integer> degreeOne = new Vector<Integer>();
-    	Vector<Integer> degreeTwo = new Vector<Integer>();
-    	for(int i = 0; i < adjAfter.length; i++) {
-    		if(adjAfter[i].size() == 2) {
-    			degreeTwo.add(i);
-    			flag = true;
-    		} else if (adjAfter[i].size() == 1){
-    			degreeOne.add(i);
-    		}
-    	}
-    	resIntegers[0] = degreeOne;
-    	resIntegers[1] = degreeTwo;
-    	return resIntegers;
-    }
-    
-    public static void colorSingleVertex(Vector<Integer> degreeOne) {
-    	for(int i = 0; i < degreeOne.size(); i++) {
-    		coloring[degreeOne.get(i)] = 0;
-    	}
-    }
-    
+    /**
+     * Reconstruct G' to G recursively
+     */
     public static void reconstructionColoring() {
-    	Vector<Integer>[] adjBefore;
     	Vector<Integer>[] adjAfter;
-    	int length;
     	
     	while(iterations >= 1) {
-    		// The type of found multigram
-    		length = identifyOrder.get(iterations - 1);
     		
-    		// adjBefore = storedGraphs.get(iterations - 2);
     		adjAfter = storedGraphs.get(iterations - 1);
     		
     		getColoring(adjAfter);
     		System.out.println("************************");
-    		
-//    		Vector<Integer>[] result = minimumDegreeOne(adjAfter);
-//    		if(flag == false) {
-//    			colorSingleVertex(adjAfter);
-//    		} else {
-//    			Vector<Integer> degreeOne = result[0];
-//    	    	Vector<Integer> degreeTwo = result[1];
-//    		}
-//    		
-//    		if(pentagramIndices.contains(iterations)) {
-//    			
-//    		} else {
-//    			Vector<Integer>[] adjBefore2;
-//    	    	Vector<Integer>[] adjAfter2;
-//    	    	iterations--;
-//    		}
-    		
-    		//for(int) {}
     		
     		iterations--;
     	}
@@ -862,8 +813,7 @@ public class GFG5 {
     			System.out.println("Identified vertices: " + identifiedPairs[iterations] + " in " + iterations + "-th iteration");
     			iterations += 1;
     		}
-    		
-    		// iterations += 1;
+
             detectMultigrams();
             printMultigrams();
             printInformation();
@@ -872,33 +822,6 @@ public class GFG5 {
     	}
     	
     	reconstructionColoring();
-    	//greedyColoring(originalGraphVectors);
-//    	System.out.println("Now removing vertices with minimum degree smaller than three:");
-//    	// TODO remove single vertices
-//    	for(int i = 0; i < N; i++) {
-//			if(numberOfVertices >= 0) {
-//	    		if(getDegree(i) == 0) {
-//	    			continue;
-//	    		} else if(getDegree(i) == 1) {
-//	    			adj[i].removeAllElements();
-//	    			adj[i].add(i);
-//	    			
-//	    			storedGraphs.add(SerializationUtils.clone(adj));
-//	    			identifiedPairs[iterations] = new Vector<Integer>();
-//	    			identifiedPairs[iterations].add(i);
-//	    			
-//	    			numberOfVertices -= 1;
-//	    			
-//	    			System.out.println("Removed vertex: " + i + " with degree " + getDegree(i));
-//	    			System.out.println("Remaining #vertex: " + numberOfVertices);
-//	    			System.out.println();
-//	    			
-//	    			iterations++;
-//	    		} else {
-//	    			continue;
-//	    		}
-//			}
-//    	}
     }
     
     /**
@@ -913,7 +836,6 @@ public class GFG5 {
     /**
      * Initialize adjacency lists, edges, multigrams and colorings
      */
-    @SuppressWarnings({ "unused" })
 	public static void initialize() {
     	initializeMultigrams();
  
@@ -945,19 +867,7 @@ public class GFG5 {
         // Store the original input graph
         originalGraphVectors = SerializationUtils.clone(adj);
 
-        // arrays required to color the
-        // graph, store the parent of node
-        int[] color = new int[N];
-        int[] par = new int[N];
- 
         Arrays.fill(coloring, -1);
-        
-        // mark with unique numbers
-        // Vector<Integer>[] mark = new Vector[N];
-        for (int i = 0; i < N; i++) {
-            // mark[i] = new Vector<>();
-            
-        }
         
         for (int i = 0; i < N; i++) {
             tetragram[i] = new Vector<>();
@@ -985,76 +895,7 @@ public class GFG5 {
 	public static void main(String[] args) {
 		
 		initialize();
- 
-//        System.out.println("Before identifying: ");
-//        detectMultigrams();
-//        printMultigrams();
-//        printInformation();
-//        for(int i = 0; i < N; i++) {
-//			System.out.println(hexagram[i]);
-//		}
-        
-//        System.out.println();
-//        System.out.println("After identifying 1, 3: ");
-//        identifyVertices(1, 3, 6);
-//        detectMultigrams();
-//        printMultigrams();
-//        System.out.println("Number of tetragram: " + tetragramNumber);
-//        System.out.println("Number of pentagram: " + pentagramNumber);
-//        System.out.println("Number of hexagram: " + hexagramNumber);
-        
-//        System.out.println();
-//        System.out.println("Identify a tetragram: ");
-//        //identifyVertices(8, 10, 4);
-//        identifyMultigram(tetragram[0]);
-//        detectMultigrams();
-//        printMultigrams();
-//        printInformation();
-//        
-//        System.out.println();
-//        System.out.println("Identify a hexagram: ");
-//        identifyMultigram(hexagram[0]);
-//        detectMultigrams();
-//        printMultigrams();
-//        printInformation();
-        
-//        for(int i = 0; i < N; i++) {
-//			System.out.println(tetragram[i]);
-//		}
-        
-//        System.out.println();
-//        System.out.println("Identify a hexagram: ");
-//        identifyMultigram(tetragram[0]);
-//        detectMultigrams();
-//        printMultigrams();
-//        printInformation();
-                
-//        System.out.println(adj[1]);
-//        System.out.println(adj[3]);
-//        System.out.println(adj[8]);
-//        System.out.println(adj[10]);
-		
 		getThreeColoring();
-//		for(int i = 0; i < N; i++) {
-//			System.out.println(i + ": " + adj[i]);
-//		}
-		
-		
-//		for(int i = 0; i < iterations; i++) {
-//			Vector<Integer>[] tempVectors = storedGraphs.get(i);
-//			for(int j = 0; j < tempVectors.length; j++) {
-//				Iterator<Integer> tempIterator = tempVectors[j].iterator();
-//				int v;
-//				while(tempIterator.hasNext()) {
-//					v = tempIterator.next();
-//					System.out.println(v);
-//				}
-//			}
-//		}
-		
-//        for(int i = 0; i < pairNumber; i++)
-//        	System.out.println(identifiedPairs[i]);
-        
-        
+
     }
 }
