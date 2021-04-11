@@ -1,15 +1,15 @@
-package Test;
+package threeColoring;
 
 import java.util.*;
-
 /**
- * detect all cycles
+ * detect some cycles
  * @author 87290
  *
  */
-public class GFG2 {
+class GFG
+{
  
-    public static final int N = 100000;
+    static final int N = 100000;
  
     // variables to be used
     // in both functions
@@ -19,23 +19,10 @@ public class GFG2 {
     @SuppressWarnings("unchecked")
     static Vector<Integer>[] cycles = new Vector[N];
     static int cyclenumber;
-    
-    @SuppressWarnings("unchecked")
-	public static Vector<Integer>[] tetragram = new Vector[N];
-    public static int tetragramNumber = 0;
-    
-    @SuppressWarnings("unchecked")
-	public static Vector<Integer>[] pentagram = new Vector[N];
-    public static int pentagramNumber = 0;
-    
-    @SuppressWarnings("unchecked")
-	public static Vector<Integer>[] hexagram = new Vector[N];
-    public static int hexagramNumber = 0;
  
     // Function to mark the vertex with
     // different colors for different cycles
-    @SuppressWarnings("unchecked")
-	static void dfs_cycle(int u, int p, int[] color, @SuppressWarnings("rawtypes") Vector[] mark, int[] par) {
+    static void dfs_cycle(int u, int p, int[] color, int[] mark, int[] par) {
  
         // already (completely) visited vertex.
         if (color[u] == 2)
@@ -49,14 +36,14 @@ public class GFG2 {
  
             cyclenumber++;
             int cur = p;
-            mark[cur].add(cyclenumber);
+            mark[cur] = cyclenumber;
+ 
             // backtrack the vertex which are
             // in the current cycle thats found
             while (cur != u)
             {
                 cur = par[cur];
-                
-                mark[cur].add(cyclenumber);
+                mark[cur] = cyclenumber;
             }
             return;
         }
@@ -86,20 +73,13 @@ public class GFG2 {
     }
  
     // Function to print the cycles
-    public static void printCycles(int edges, Vector<Integer> mark[]) {
+    public static void printCycles(int edges, int mark[]) {
  
         // push the edges that into the
         // cycle adjacency list
         for (int i = 1; i <= edges; i++) {
-            if (!mark[i].isEmpty()) {
-            	Iterator<Integer> iterator = mark[i].iterator();
-            	int jInteger;
-            	
-            	while(iterator.hasNext()) {
-            		jInteger = iterator.next();
-            		cycles[jInteger].add(i);
-            	}
-        	}
+            if (mark[i] != 0)
+                cycles[mark[i]].add(i);
         }
  
         // print all the vertex with same cycle
@@ -113,8 +93,7 @@ public class GFG2 {
     }
  
     // Driver Code
-    @SuppressWarnings("unchecked")
-	public static void main(String[] args) {
+    public static void main(String[] args) {
  
         for (int i = 0; i < N; i++) {
             adj[i] = new Vector<>();
@@ -144,16 +123,7 @@ public class GFG2 {
         int[] par = new int[N];
  
         // mark with unique numbers
-        Vector<Integer>[] mark = new Vector[N];
-        for (int i = 0; i < N; i++) {
-            mark[i] = new Vector<>();
-        }
-        
-        for (int i = 0; i < cyclenumber; i++) {
-            tetragram[i] = new Vector<>();
-            pentagram[i] = new Vector<>();
-            hexagram[i] = new Vector<>();
-        }
+        int[] mark = new int[N];
  
         // store the numbers of cycle
         cyclenumber = 0;
@@ -164,15 +134,5 @@ public class GFG2 {
  
         // function to print the cycles
         printCycles(edges, mark);
-        
-        for(int i = 0; i < cyclenumber; i++) {
-        	if(cycles[i].size() == 4) {
-        		tetragram[tetragramNumber] = cycles[i];
-        	} else if(cycles[i].size() == 5) {
-        		pentagram[pentagramNumber] = cycles[i];
-        	} else if(cycles[i].size() == 6) {
-        		hexagram[hexagramNumber] = cycles[i];
-        	}
-        }
     }
 }
