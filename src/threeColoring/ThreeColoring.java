@@ -20,12 +20,13 @@ import org.apache.commons.lang3.SerializationUtils;
  * @supervised Prof. Dr. László Kozma
  *
  */
-public class ThreeColoring {
+public class ThreeColoring{
  
-    public static final int N = 13;
+    public static final int N = 27;
     
     // Number of iterations and identified pairs
     public static int iterations = 0;
+    public static int tempCounter = 0;
  
     @SuppressWarnings("unchecked")
     public static Vector<Integer>[] adj = new Vector[N];
@@ -238,7 +239,7 @@ public class ThreeColoring {
 				    									detectedHexagram[detectedHexagramNumber].add(v3);
 				    									detectedHexagram[detectedHexagramNumber].add(v4);
 				    									detectedHexagram[detectedHexagramNumber].add(v5);
-				    									hexagramNumber++;
+				    									detectedHexagramNumber++;
 				    								}
 				    							} else {
 				    		    					continue;
@@ -329,6 +330,7 @@ public class ThreeColoring {
     		}
     	}
     	handleNeighbors(u, v);
+    	// adj[v].add(v);
     	
     	// store the removed vertices
     	identifiedPairs[iterations] = new Vector<Integer>();
@@ -755,9 +757,18 @@ public class ThreeColoring {
 					break;
 				}
 			}
+			if(coloring[u] != 1)
+				coloring[u] = cr; 
 			
 			// Assign the color to vertex u
-			coloring[u] = cr; 
+			for(int i = 0; i <= tempCounter; i++) {
+				if(identifiedPairs[i].size() == 2 && identifiedPairs[i].contains(u)) {
+					identifiedPairs[i].removeElement(u);
+					int v = identifiedPairs[i].get(0);
+					coloring[v] = cr;
+				}
+			}
+			
  
 			// Set all colors as available and begin the next iteration
 			Arrays.fill(available, true);
@@ -774,11 +785,12 @@ public class ThreeColoring {
      */
     public static void reconstructionColoring() {
     	Vector<Integer>[] adjAfter;
+    	tempCounter = iterations;
     	
     	while(iterations >= 1) {
     		
     		adjAfter = storedGraphs.get(iterations - 1);
-    		
+    		printInformation(adjAfter);
     		getColoring(adjAfter);
     		System.out.println("************************");
     		
@@ -793,7 +805,7 @@ public class ThreeColoring {
     	System.out.println("The info of input graph: ");
     	detectMultigrams();
         printMultigrams();
-        printInformation();
+        printInformation(adj);
         System.out.println("Remaining #vertex: " + numberOfVertices);
         System.out.println();
         
@@ -816,7 +828,7 @@ public class ThreeColoring {
 
             detectMultigrams();
             printMultigrams();
-            printInformation();
+            printInformation(adj);
             System.out.println("Remaining #vertex: " + numberOfVertices);
             System.out.println();
     	}
@@ -844,14 +856,7 @@ public class ThreeColoring {
         addEdge(2, 3);
         addEdge(3, 4);
         addEdge(4, 5);
-//        addEdge(6, 5);
-//        addEdge(1, 6);
-//        addEdge(1, 7);
-//        addEdge(7, 8);
-//        addEdge(8, 9);
-//        addEdge(9, 10);
-//        addEdge(7, 10);
-        
+
         addEdge(1, 5);
         addEdge(1, 6);
         addEdge(2, 7);
@@ -862,7 +867,27 @@ public class ThreeColoring {
         addEdge(10, 11);
         addEdge(11, 12);
         
-        numberOfVertices = 12;
+        addEdge(8, 13);
+        addEdge(13, 16);
+        addEdge(15, 16);
+        addEdge(14, 15);
+        addEdge(13, 14);
+        
+        addEdge(16, 17);
+        addEdge(17, 18);
+        addEdge(18, 19);
+        addEdge(19, 20);
+        addEdge(17, 20);
+        
+        addEdge(20, 21);
+        addEdge(21, 22);
+        addEdge(22, 23);
+        addEdge(23, 24);
+        addEdge(24, 25);
+        addEdge(25, 26);
+        addEdge(21, 26);
+        
+        numberOfVertices = 26;
         
         // Store the original input graph
         originalGraphVectors = SerializationUtils.clone(adj);
@@ -881,7 +906,7 @@ public class ThreeColoring {
         }
     }
  
-    public static void printInformation() {
+    public static void printInformation(Vector<Integer>[] adj) {
     	for(int i = 0; i < N; i++) {
 			System.out.println(i + ": " + adj[i]);
 		}
@@ -896,6 +921,6 @@ public class ThreeColoring {
 		
 		initialize();
 		getThreeColoring();
-
+		//getColoring(adj);
     }
 }

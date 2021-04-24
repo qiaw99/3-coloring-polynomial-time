@@ -1,23 +1,31 @@
 % !TeX encoding = UTF-8
 \section{Introduction}
-\textit{Graph coloring problem} is one of the most famous \textit{NP-complete} problems. Given a graph $G = (V, E)$ and $k$, where $V$ is the set of vertices in the graph, $E$ is the set of edges and $k$ is the number of available colors. The problem is to assign a certain color to every vertex $v \in V$ with the constraint: there is no pairs of vertices which are adjacent and  have the same color.
-This problem has pretty much applications:
+\textit{The graph coloring problem} is one of the most famous \textit{NP-complete} problems. Given a graph $G = (V, E)$ and $k$, where $V$ is the set of vertices in the graph, $E$ is the set of edges and $k$ is the number of available colors. The problem is to assign a certain color to every vertex $v \in V$ with the constraint: there is no pair of vertices which are adjacent and  have the same color.
+This problem has many applications:
 \begin{itemize}
-    \item[(1)] \textit{Map Coloring:} Coloring geographical maps of countries or states where no two adjacent countries cannot be assigned same color. Four colors are enough to color.
+    \item[(1)] \textit{Map Coloring:} Coloring geographical maps of countries or states where no two adjacent countries can be assigned same color. Four colors are enough to color.
     \item[(2)] \textit{Sudoku:} Sudoku is a variation of graph coloring problem where every cell represents a vertex. There is an edge between two vertices if they are in same row or same column or same block.
     \item[(3)] \textit{Register Allocation:} In compiler optimization, register allocation is the process of assigning a large number of target program variables onto a small number of CPU registers. \cite{example}
 \end{itemize}
 
+\begin{definition}
+A \textit{graph} is a tuple $G = (V, E)$ consisting of a nonempty set $V$ of vertices and a set of edges $E$. \cite{bondy1976graph}
+\end{definition}
+
+\begin{definition}
+A \textit{vertex coloring} of a graph $G = (V, E)$ is a map $c: V \longrightarrow S$ such that $c(v) \ne c(w)$ whenever $v$ and $w$ are adjacent. The elements of the set $S$ are called the available colors. If $G$ has a $k$-COLORING, namely the size of $S$ is $k$, then we call the graph $G$ is $k$-colorable.
+ \cite{diestel2010graph}
+\end{definition}
 \begin{claim}
-2-COLORING problem is the simplest among all coloring problems, because it is solvable in polynomial time. (2-COLORING $\in$ $P$)
+2-COLORING problem can be solved in polynomial time.
 \end{claim}
 
 \begin{proof}
 Suppose the given graph $G = (V, E)$ and color $c_1, c_2$. 
 \begin{itemize}
-    \item[(1)] Randomly pick $v \in V$, color it with $c_1$ and record the number of coloring and the assigned colors.
-    \item[(2)] Apply BFS starting with vertex $v$ and color its neighbors with $c_2$ and so on. The point is that for $\forall u \in V$, we should color its neighbor with the other color alternatively.
-    \item[(3)] After finishing BFS, go through all vertices again to check whether there is a vertex that is assigned with different colors other than its neighbor(s). If \textit{yes}, then the graph is \textit{not} 2-colorable, \textit{otherwise} it is 2-colorable.
+    \item[(1)] Randomly pick $v \in V$, color it with $c_1$.
+    \item[(2)] Apply BFS starting with vertex $v$ and color its neighbors with $c_2$. The point is that for $\forall u \in V$, we should color its neighbors with the other color alternatively: assume that the color of $u$ is $c_1$, then we assign $c_2$ to its neighbors, and vice versa.
+    \item[(3)] After finishing BFS, go through all vertices again to check whether there is a vertex that is assigned with same colors other than its neighbor(s). If \textit{yes}, then the graph is \textit{not} 2-colorable, \textit{otherwise} it is 2-colorable.
 \end{itemize}
 The running time is similar to BFS: $\mathcal{O}(|V| + |E|)$.
 \end{proof}
@@ -27,7 +35,9 @@ We can check whether a graph is bipartite by coloring the graph using two colors
 \end{observation}
 
 \begin{observation}
-$k$-COLORING problems are $NP-complete$ for $k \geq 3$ and 3-COLORING $\le_p$ k-COLORING. 
+$k$-COLORING problems are $NP-complete$ for $k \geq 3$. 
 \end{observation}
 
-As previously stated, the k-COLORING problem is NP-complete, which means that it seems hardly possible to have a polynomial time algorithm for this problem. Moving on now to consider 3-COLORING problem under circumstance that there is no triangle within the given graph $G$. Grötzsch’s theorem \cite{grotzsch1959dreifarbensatz} states that each triangle-free planar graph is 3-colorable. Thomassen \cite{Thomassen1994Grtzschs3T} has also found two proofs and extended the result in various way, by which an quadratic algorithm for finding suitable 3-coloring can be developed possibly. Kowalik \cite{article} maintains a complex data structure called \textit{Short Path Data Structure (SPDS)}, which will be built in linear time and enables that finding shortest paths of length at most 2 in planar graph takes $\mathcal{O}(1)$ time. The SPDS will be constantly updated during the particular sequence of operations. And its running time is $\mathcal{O}(n\log{}n)$. After that, Dvorak, Kawaravayashi and Thomas \cite{dvorak2013threecoloring} have designed a linear-time algorithm which still replies on the Grötzsch’s theorem but avoids complex data structures. Nevertheless, their paper is quite complicated for readers. So this paper will give a deeper and detailed view into their paper for better understanding of their main idea and proofs. 
+As previously stated, the k-COLORING problem is NP-complete, which means that it seems hardly possible to have a polynomial time algorithm for this problem. Moving on now to consider 3-COLORING problem under circumstance that there is no triangle within the given graph $G$. Grötzsch’s theorem \cite{grotzsch1959dreifarbensatz} states that each triangle-free planar graph is 3-colorable. Thomassen \cite{Thomassen1994Grtzschs3T} has also found two proofs and extended the result in various way, by which a quadratic algorithm for finding suitable 3-coloring can be developed possibly. Kowalik \cite{article} maintains a complex data structure called \textit{Short Path Data Structure (SPDS)}, which will be built in linear time and enables that finding shortest paths of length at most 2 in planar graph takes $\mathcal{O}(1)$ time. The SPDS will be constantly updated during the particular sequence of operations. And its running time for finding 3-COLORING is $\mathcal{O}(n\log{}n)$. After that, Dvorak, Kawaravayashi and Thomas \cite{dvorak2013threecoloring} have designed a linear-time algorithm which still relies on the Grötzsch’s theorem but avoids complex data structures. Nevertheless, their paper is quite complicated for readers. So this thesis will give a deeper and detailed view into their paper for better understanding of their main ideas and proofs. \\ 
+
+In the second section, we will give some needed definitions and give an overview of this linear-time algorithm. In the third section, we will introduce a attribute called safety with which it's possible to reduce the size of graph. Then in the fourth section, we will give a short proof of Grötzsch's theorem by two lemmas. Next, we will give an overview how a naive algorithm for three-coloring is implemented and show some improvements. In the last two sections, the way to have a linear-time algorithm will be given and its correctness will be also proven. 

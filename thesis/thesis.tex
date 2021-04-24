@@ -14,8 +14,8 @@
 \usepackage[ngerman]{babel}
 %Math and theorems
 \usepackage{amssymb}
-\usepackage{amsthm}
 %Makes stuff looks nice
+\usepackage{amsthm}
 \usepackage{microtype}
 %Adapts the ratios of the page
 \usepackage[headheight=13.6pt, top=3cm, bottom=2.6cm, left=3cm, right=3cm]{geometry}
@@ -40,9 +40,42 @@
 \usepackage{tikz} 
 \usepackage{caption}
 \usepackage{graphicx, subfig}
+\usepackage{xcolor}
+\usepackage[ruled,nolined]{algorithm2e}
+\usepackage{biblatex}
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{bibliography.bib}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  %numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 
 % Global parameters, replace with actual values.
-\newcommand{\thesisTitle}{Three-coloring triangle-free planar graphs in linear time}
+\newcommand{\thesisTitle}{Understanding and implementation of the algorithm for three-coloring in triangle-free planar graphs}
 % -> You may use \par (but not \\) to format the title. If you do so, you'll
 %    need to manually set the 'pdftitle' attribute below.
 \newcommand{\studentName}{Qianli Wang}
@@ -86,17 +119,17 @@
     student/id=5338778,
     student/mail=qiaw99@zedat.fu-berlin.de,
     thesis/type=Bachelor Thesis,            % optional, default: Bachelorarbeit
-    thesis/group={Work group theoretical informatics},
+    thesis/group={Work group theoretical computer science},
                                            % optional, default: AGSE
     thesis/advisor={Prof. Dr. László Kozma},           % optional
     thesis/examiner={Prof. Dr. László Kozma},
-    thesis/examiner/2={Prof. Dr. Bob Bär}, % optional
+    thesis/examiner/2={PD Dr. rer. nat. Klaus Kriegel}, % optional
     thesis/date=\today,                    % optional, default: \today
-   %title/size=\LARGE,      % set this value to overwrite automatic font size
+   title/size=\LARGE,      % set this value to overwrite automatic font size
    %abstract/separate       % toggle this to move the abstract to its own page
 ]
 { % Your abstract here:
-    Test for abstract
+    Grötzsch's theorem affirms that every planar graph $G$ in which there is no triangle is 3-colorable. Dvorak, Kawarabayashi, and Thomas have designed a linear-time algorithm relying on the Grötzsch's theorem to find a proper 3-coloring of the given graph.  Compared to Kowalik who used a data structure called "Short Path Data Structure (SPDS)", it avoids complex data structures, which makes it easier to implement. However, because of the difficulty of their paper and complicated proofs, it's really hard to understand it. So we will explain their main idea and proofs with more illustrations and in detail. 
 }
 
 \include{declaration}
@@ -112,10 +145,12 @@
 \input{1_introduction}
 \input{2_fundamentals}
 \input{3_main}
-\input{4_conclusion}
+%\input{4_conclusion}
 
 % Refers to file `bibliography.bib`
-\bibliography{bibliography}
+
+%\bibliography{bibliography.bib}
+\printbibliography
 
 \appendix
 \include{5_appendix}

@@ -3,7 +3,7 @@
 Let's introduce some reducible multigrams: A \textit{tetragram} is a sequence ($v_1$, $v_2$, $v_3$, $v_4$) of vertices of $G$ such that it can build a facial cycle in this listed order. Analogously, we can define a \textit{hexagram} ($v_1$, $v_2$, $v_3$, $v_4$, $v_5$, $v_6$). And a \textit{pentagram} ($v_1$, $v_2$, $v_3$, $v_4$, $v_5$) is also defined likewise but with the limitation: $v_1$, $v_2$, $v_3$, $v_4$ have degree exactly three.
 
 \subsection{Safe multigrams}
-As was pointed out in the last section to this paper, the detected multigrams should possess some attributions, which is called \textit{safety}. Assume that $k$ = 4, 5, 6 and ($v_1, v_2, ..., v_k$) be a tetra-, penta- or hexagram in a triangle-free planar graph $G$. On the occasion that $k$ = 4 or $k$ = 6, the tetragram or hexagram is $safe$ if every path in $G$ of length at most three with ends $v_1$ and $v_3$ is a subgraph of cycle $v_1v_2...v_k$, which means the path(s) from $v_1$ to $v_3$ of length at most three has to be part of multigrams. The safety of pentagram is bit complicated: let $x_i$ be the neighbor of $v_i$ different from $v_{i-1}$ and $v_{i+1}$, where $v_0 = v_5$. Thus $x_i \notin$ \{$v_1, v_2, v_3, v_4, v_5$\} for the reason that if that is the case, the vertices $v_i$, $x_i$ form a triangle with $v_{i-1}$ or $v_{i+1}$, which is a contradiction to the triangle-free graph. A pentagram ($v_1, v_2, v_3, v_4, v_5$) is \textit{safe} \cite{dvorak2013threecoloring}, if
+As was pointed out in the second section of this thesis, the detected multigrams should possess some attributes, which is called \textit{safety}. Assume that $k$ = 4, 5, 6 and ($v_1, v_2, ..., v_k$) be a tetra-, penta- or hexagram in a triangle-free planar graph $G$. On the occasion that $k$ = 4 or $k$ = 6, the tetragram or hexagram is $safe$ if every path in $G$ of length at most three with ends $v_1$ and $v_3$ is a subgraph of cycle $v_1v_2...v_k$, which means the path(s) from $v_1$ to $v_3$ of length at most three has to be part of multigrams. The safety of pentagram is bit complicated: let $x_i$ be the neighbor of $v_i$ different from $v_{i-1}$ and $v_{i+1}$, where $v_0 = v_5$. Thus $x_i \notin$ \{$v_1, v_2, v_3, v_4, v_5$\} for the reason that if that is the case, the vertices $v_i$, $x_i$ form a triangle with $v_{i-1}$ or $v_{i+1}$, which is a contradiction to the triangle-free graph. A pentagram ($v_1, v_2, v_3, v_4, v_5$) is \textit{safe} \cite{dvorak2013threecoloring}, if
 \begin{itemize}
     \item the vertices $x_1, x_2, x_3, x_4$ are pairwise distinct and pairwise non-adjacent, and
     \item there is no path in $G \backslash \{v_1, v_2, v_3, v_4\}$ of length at most three from $x_2$ to $v_5$, and
@@ -11,8 +11,7 @@ As was pointed out in the last section to this paper, the detected multigrams sh
 \end{itemize}
 
 \begin{definition}
-Given a facial cycle $C$ of length four, \textit{identifying a pair of
-diagonally opposite vertices of $C$} means that the two selected vertices $u, v \in V(C)$ will be "glued" as a vertex. It results $|V(C^{'})| = |V(C)| - 1$.
+Given a graph $G$ = ($V$, $E$), \textit{identifying a pair of vertices} means that the two selected vertices $u, v \in V(G)$ will be "glued" as a vertex $s$ and the neighbor of $s$ is the union of $u, v$'s neighbors. After that we'll then obtain a new graph $G^{'}$ = ($V^{'}$, $E^{'}$), where $V^{'} = V \backslash \{u, v\} \cup \{s\}$ and $E^{'}$ will be obtained by deleting parallel edges from $E$ after gluing the vertices.  It results $|V(G^{'})| = |V(G)| - 1$.
 \end{definition}
 
 \subsection{Identifying vertices and reconstruction of graph}
@@ -20,7 +19,7 @@ diagonally opposite vertices of $C$} means that the two selected vertices $u, v 
 If there exists a safe tetra- or hexagram, $G^{'}$ can be obtained by identifying vertices $v_1$ with $v_3$. $v_1$ in \textbf{Figure 6, 7} is at the same time $v_3$ as well. For \textit{tetragram} $(v_1, v_2, v_3, v_4)$:
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
 \centering %图片居中
-\includegraphics[width=0.6\textwidth]{figure/identifyingv1v3.png} 
+\includegraphics[width=0.7\textwidth]{figure/identifyingv1v3.png} 
 \label{figure} %用于文内引用的标签
 \caption{Identifying $v_1$ and $v_3$ in a safe tetragram}
 \end{figure}
@@ -32,32 +31,25 @@ For \textit{hexagram} $(v_1, v_2, v_3, v_4, v_5, v_6)$:
 \centering %图片居中
 \includegraphics[width=0.7\textwidth]{figure/identifyingv1v32.png} 
 \label{figure} %用于文内引用的标签
-\caption{Identifying $v_1$ and $v_3$ in a safe pentagram}
+\caption{Identifying $v_1$ and $v_3$ in a safe hexagram}
 \end{figure}
 
-\textit{Reconstruction step: }In graph $G^{'}$, we can assign colors following these principles: let $c_1$ be the color of $v_2$, $c_2$ be the color of $v_1$. We can determine colors of $v_4$ and $v_6$ arbitrarily. Assume that the color of $v_4$ and $v_6$ is $c_3$ and the color of $v_5$ is $c_1$. Apparently, the color can be designated for $c_2$ as well, since $v_1$ and $v_3$ are not adjacent and the hexagram is safe.\\
+\textit{Reconstruction step: }In graph $G^{'}$, we can assign colors following these principles: let $c_1$ be the color of $v_2$, $c_2$ be the color of $v_1$. We can determine colors of $v_4$ and $v_6$ arbitrarily. Assume that the color of $v_4$ and $v_6$ is $c_3$ and the color of $v_5$ is $c_1$. Apparently, the color $c_2$ can be designated for $v_3$ as well, since $v_1$ and $v_3$ are not adjacent and the hexagram is safe.\\
 
 The case of pentagram ($v_1$, $v_2$, $v_3$, $v_4$, $v_5$) is significantly different. $G^{'}$ will be attained from $G \backslash \{v_1, v_2, v_3, v_4\}$ by identifying $v_5$ with $x_2$ and $x_3$ with $x_4$.
 
-\begin{figure}[htbp]
-\centering
-\begin{minipage}[t]{0.48\textwidth}
-\centering
-\includegraphics[width=1\textwidth]{figure/pentagram.png}
-\caption{$G$}
-\end{minipage}
-\begin{minipage}[t]{0.48\textwidth}
-\centering
-\includegraphics[width=1\textwidth]{figure/pentagram_prime.png}
-\caption{$G^{'}$}
-\end{minipage}
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+\centering %图片居中
+\includegraphics[width=1.1\textwidth]{figure/pentagramidentift.png} 
+\label{figure} %用于文内引用的标签
+\caption{Identifying $v_5, x_2$ and $x_3, x_4$ in a safe pentagram}
 \end{figure}
 
 \textit{Reconstruction step: }In graph $G^{'}$, let $c_1$ be the color of $x_1$, $c_2$ the color of $x_2$ and $v_5$, and $c_3$ the color of $x_3$ and $x_4$. Consider the following cases:
 \begin{itemize}
     \item $c_1 = c_2$, we will color the remaining vertices in this order ($v_4, v_3, v_2, v_1$). Since there are at most two remaining colors when $v_i$ is colored, we can simply choose the third color for it. 
     \item $c_2 = c_3$, similarly, we will color the vertices in the reversed order as in the first case.
-    \item $c_1 \ne c_2 \ne c_3$, we can color $v_2$ with $c_1$, $v_1$ with $c_3$, $v_3$ with $c_2$ and $v_4$ with $c_1$.
+    \item $c_1 \ne c_2$ and $c_2 \ne c_3$, we can color $v_2$ with $c_1$, $v_1$ with $c_3$, $v_3$ with $c_2$ and $v_4$ with $c_1$.
 \end{itemize}
 
 \subsection{Counterexamples: unsafe multigrams}
@@ -75,7 +67,7 @@ Subsequently, let's take care of the importance of multigrams. What happens, whe
 \caption{An unsafe hexagram} %最终文档中希望显示的图片标题
 \label{figure} %用于文内引用的标签
 \end{figure}
-Observed from above figures that after identifying vertices $v_1$ with $v_3$, a triangle consisting of $s, t, v_1$ will be created.\newline \\
+Observe from above figures that after identifying vertices $v_1$ with $v_3$, a triangle consisting of $s, t, v_1$ will be created.\newline \\
 If a pentagram is not safe, then it has either a path in $G \backslash \{v_1, v_2, v_3, v_4\}$ at most three from $x_2$ to $v_5$ or a path in $G \backslash \{v_1, v_2, v_3, v_4\}$ from $x_3$ to $x_4$ of length 3.
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
 \centering %图片居中
@@ -90,14 +82,14 @@ If a pentagram is not safe, then it has either a path in $G \backslash \{v_1, v_
 \label{figure} %用于文内引用的标签
 \caption{Unsafe pentagram, case 2}
 \end{figure}
-Noticed that in the former case, $v_5$($x_2$), $s$ and $t$ build a triangle and in the latter case, $x_3$($x_4$), $s$ and $t$ build a triangle in the same way.
+Notice that in the former case, $v_5$($x_2$), $s$ and $t$ build a triangle and in the latter case, $x_3$($x_4$), $s$ and $t$ build a triangle in the same way.
 
 %----------------------------------------------------------------------
 \section{Proof of Grötzsch's theorem}
 Firstly, we introduce a method that is often used in graph theory. 
-\textit{Discharging method} is a technique used to prove lemmas in structural graph theory. Initially, a charge is assigned to each face and each vertex of the graph. The charges are assigned so that they sum to a small positive number. During the Discharging Phase the charge at each face or vertex may be redistributed to nearby faces and vertices. However, each discharging rule maintains the sum of the charges. \cite{discharging}
+\textit{Discharging method} is an important proof technique in structural graph theory. The general process of discharging is this: we discharge the graph based on certain "discharging rules," during which some elements gain charges, and some elements lose charges, while the sum of the charges stays constant. \cite{wu2020introduction}
 
-\begin{observation}
+\begin{observation} Given $F$ is a set of all faces embedded in the graph $G$ = ($V$, $E$), then:
 \begin{align*}
     \sum_{f \in F}deg(f) = 2|E| \ and \ \sum_{v \in V}deg(v) = 2|E|
 \end{align*}
@@ -105,7 +97,7 @@ Firstly, we introduce a method that is often used in graph theory.
 \end{observation}
 
 \begin{theorem}[Euler's formula]
-If a finite, connected, planar graph is drawn in the plane without any edge intersections, and $v$ is the number of vertices, $e$ is the number of edges and $f$ is the number of faces (regions bounded by edges, including the outer, infinitely large region), then: $v-e+f=2$. \cite{euler}
+For any planar graph with $v$ vertices, $e$ edges, and $f$ faces, we have $v - e + f = 2$. This equation is called \textit{Euler's formula} for planar graphs. \cite{Discrete_Mathematics}
 \end{theorem}
 
 \begin{proof}
@@ -155,7 +147,7 @@ Assign the charge of a vertex $v$ to be 3deg($v$) - 12, the charge of the face $
 Let $\ell$ be the size of cycle $C$. As we defined above, the initial charge of face $f_0$ is $3 \ell + 11$. According to \textbf{Lemma 4.2}($G \ne C$), we know that there is at least one vertex on $C$ whose degree is at least three, which leads that there are at most $(\ell - 1)$ vertices of $C$ with degree two and one vertex on $C$ has degree at least three. Thus, $f_0$ can send at most obeying rules (2) and (3) $\big(5(\ell - 1) + 3\big)$ units of charge.\\
 $\longrightarrow$ The final charge of $f_0$ = $3\ell + 11 - 5(\ell - 1) - 3 = 13 - 2\ell \geq 1$, since the length of the outer face is at most six.
 \end{proof}
-Noticed that among above three rules, all vertices do not send any units of charge. Hence, the charge of all vertices is also non-negative. In consonance with the definition of discharging method, the total sum before and after charging should keep unchanged, which contributes to the existence of a face $f \ne f_0$ whose final charge is strictly negative. From rule (1) informed that $f$ will send at most one unit to each incident vertex. The final charge is $3\ell - 12 - \ell = 2\ell - 12$, which is, as discussed, smaller than 0. It follows that the length of $f$ is at most five. Moreover, if $f$ has length exactly five, its initial charge is $3\ell - 12 = 3$, then $f$ has to have at least four incident vertices. And all these vertices cannot be on $C$ and have degree two. Otherwise, $f$ will send nothing to the ends of the common subpath of $f$ and $f_0$. As a deduction, the vertices of $f$ structure a tetragram or a pentagram.
+Notice that among above three rules, all vertices do not send any units of charge. Hence, the charge of all vertices is also non-negative. In consonance with the definition of discharging method, the total sum before and after charging should keep unchanged, which contributes to the existence of a face $f \ne f_0$ whose final charge is strictly negative. From rule (1) informed that $f$ will send at most one unit to each incident vertex. The final charge is $3\ell - 12 - \ell = 2\ell - 12$, which is, as discussed, smaller than 0. It follows that the length of $f$ is at most five. Moreover, if $f$ has length exactly five, its initial charge is $3\ell - 12 = 3$, then $f$ has to have at least four incident vertices. And all these vertices cannot be on $C$ and have degree two. Otherwise, $f$ will send nothing to the ends of the common subpath of $f$ and $f_0$. As a deduction, the vertices of $f$ structure a tetragram or a pentagram.
 \end{proof}
 
 \begin{lemma}
@@ -171,7 +163,7 @@ Suppose that $(v_1, v_2, v_3, v_4)$ is a tetragram in $G$ which bounds a face, t
 \begin{proof}
 Prove by contradiction: assume that both of tetragrams are unsafe, which implies that there is no pair of diagonally opposite vertices.
 \begin{itemize}
-    \item[(1)] \textit{\textbf{$v_1$ and $v_3$ is not the pair diagonally opposite vertices.}} So there is a path from $v_1$ to $v_3$ that is not part of graph $G$ of length at three. See the case in \textbf{Figure 14}.
+    \item[(1)] \textit{\textbf{$v_1$ and $v_3$ is not the pair diagonally opposite vertices.}} So there is a path from $v_1$ to $v_3$ that is not part of graph $G$ of length at three. See the case in \textbf{Figure 13}.
     \item[(2)] \textit{\textbf{$v_2$ and $v_4$ is not the pair diagonally opposite vertices.}} Then there must exist a path from $v_2$ to $v_4$ of length at most three. 
     \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
     \centering %图片居中
@@ -197,7 +189,7 @@ most 5, which means every face has length at least 6. In this case, we have ever
 This is a contradiction.
 \end{proof}
 
-Observed that no separating cycle of length at most five can be contained in $G_1$ for the reason that otherwise we can choose that smaller cycle to be $C_1$. Hence, there is no 4-cycle in $G_1$ except possibly $C_1$, because 
+Observe that no separating cycle of length at most five can be contained in $G_1$ for the reason that otherwise we can choose that smaller cycle to be $C_1$. Hence, there is no 4-cycle in $G_1$ except possibly $C_1$, because 
 \begin{itemize}
     \item it cannot be a 4-face, as proved in \textbf{Claim 4},
     \item there is no 4-separating cycle as mentioned.
@@ -207,7 +199,7 @@ A step further, we can define a subgraph $G_2$ of $G_1$ and the facial cycle $C_
 We can apply \textbf{Lemma 4.2.} on graph $G_2$ and the facial cycle $C_2$ and conclude that $G_2$ has a pentagram ($v_1, v_2, v_3, v_4, v_5$) with $v_1, v_2, v_3, v_4 \notin V(C_2)$.
 \begin{itemize}
     \item[(1)] \textit{\textbf{At least one of pentagrams ($v_1, v_2, v_3, v_4, v_5$) and ($v_4, v_3, v_2, v_1, v_5$) is safe.}} Then the lemma holds.
-    \item[(2)] \textit{\textbf{None of them is safe.}} $\forall i \in \{1, 2, 3, 4\}$, let $x_i$ be the neighbor of $v_i$ other than $v_{i-1}$ and $v_{i+1}$, where $v_0 = v_5$. Noticed that $x_1, x_2, x_3, x_4$ belong to $G_2$ because otherwise it might create crosses between the incident edges with neighbors and $C_2$, and they are pairwise distinct and non-adjacent, since 
+    \item[(2)] \textit{\textbf{None of them is safe.}} $\forall i \in \{1, 2, 3, 4\}$, let $x_i$ be the neighbor of $v_i$ other than $v_{i-1}$ and $v_{i+1}$, where $v_0 = v_5$. Notice that $x_1, x_2, x_3, x_4$ belong to $G_2$ because otherwise it might create crosses between the incident edges with neighbors and $C_2$, and they are pairwise distinct and non-adjacent, since 
     \begin{itemize}
         \item $G_2$ is triangle-free,
         \item no separating cycle at most 5,
@@ -234,7 +226,7 @@ We assume that at least one of $x_3$ and $x_4$ is not on $C_2$.
     \caption{$x_4$ not on $C_2$, $x_3$ on $C_2$} %最终文档中希望显示的图片标题
     \label{figure} %用于文内引用的标签
     \end{figure}
-    It leads to a contradiction to the minimality of cycle $C_2$, for the reason that there is a smaller 4-separating cycle $x_3v_3v_4v_5$ or 5-separating cycle $x_3v_3v_4v_5s$ or 6-separating cycle $x_3v_3v_4v_5st$ containing $x_4$. Observed that if $x_2$ lies on $C_2$, it's analog to the former case when $x_3$ is on $C_2$. May assume now that $x_1$ lies on $C_2$:
+    It leads to a contradiction to the minimality of cycle $C_2$, for the reason that there is a smaller 4-separating cycle $x_3v_3v_4v_5$ or 5-separating cycle $x_3v_3v_4v_5s$ or 6-separating cycle $x_3v_3v_4v_5st$ containing $x_4$. Observe that if $x_2$ lies on $C_2$, it's analog to the former case when $x_3$ is on $C_2$. May assume now that $x_1$ lies on $C_2$:
     \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
     \centering %图片居中
     \includegraphics[width=0.5\textwidth]{figure/x1notonc2.png} 
@@ -268,7 +260,7 @@ If $\{x, y\} = \{x_3, x_4\}$, let $Q$ be the path $x_3v_3v_4x_4$; otherwise $x_2
     \begin{proof}
     By contradiction: there would be a path from $x_4$ to $v_3$ of length at most three that is not part of this hexagram. Assume that this path would be $x_4u_1v_3$ or $x_4u_1u_2v_3$, where $u_1, u_2 \ne v_4$.
     \begin{itemize}
-        \item \textit{\textbf{The path is $x_4u_1v_3$.}} Noted that $v_3$ has degree exactly three according to the definition of pentagram and its neighbors are $v_2$, $v_4, x_3$. In addition, $v_2$ has also degree exactly three and has neighbors $v_1, x_2, v_3$. So $u_1$ can't be $v_2$. What's more, $x_3, x_4$ are non-adjacent. It follows that this case is not possible.
+        \item \textit{\textbf{The path is $x_4u_1v_3$.}} Note that $v_3$ has degree exactly three according to the definition of pentagram and its neighbors are $v_2$, $v_4, x_3$. In addition, $v_2$ has also degree exactly three and has neighbors $v_1, x_2, v_3$. So $u_1$ can't be $v_2$. What's more, $x_3, x_4$ are non-adjacent. It follows that this case is not possible.
         \item \textit{\textbf{The path is $x_4u_1u_2v_3$.}} 
         \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
             \centering %图片居中
@@ -292,22 +284,30 @@ If $\{x, y\} = \{x_3, x_4\}$, let $Q$ be the path $x_3v_3v_4x_4$; otherwise $x_2
         \item[(2)] \textit{\textbf{$\{x, y\} = \{x_3, x_4\}$}}: As mentioned in the \textbf{Lemma 4.5.} that at least one of $x_3$ and $x_4$ is not on $C_2$.
     \end{itemize}
 \end{proof}
-Thus, we may assume that $x_4 \in C_2$ and $x_3 \notin C_2$. Meanwhile, a subpath $R$ of $P \cup Q$ of length exactly four joins $w_1, w_4 \in V(C_2)$. 
+Thus, we may assume that $x_4 \in C_2$ and $x_3 \notin C_2$. The other case is similar. Meanwhile, a subpath $R$ of $P \cup Q$ of length exactly four joins $w_1, w_4 \in V(C_2)$. 
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
     \centering %图片居中
     \includegraphics[width=0.7\textwidth]{figure/lemma2.2.png} 
     \caption{$P \cup Q$ is a separating cycle} %最终文档中希望显示的图片标题
     \label{figure} %用于文内引用的标签
     \end{figure}
-Observed that the vertex $w \in (P \cup Q) \backslash V(G_2)$ is adjacent to $w_1$ and $w_4$. Let's take care of the position of $w$: assume firstly that $w \notin V(G_1)$, which implies that $w_1, w_4 \in V(C_1)$ because $w_1, w_4 \in V(C_2)$. Otherwise, edges $ww_1$ and $ww_4$ will build crosses with $C_1$. From the \textbf{Figure 20.} informed that $w_1$ and $w_4$ cannot be adjacent on the grounds that if this would not be the case, $w_1w_4w$ will form a triangle, which is a contradiction. Thereby, there is a common neighbor of $w_1$ and $w_4$ in $C_2$ which can replace $w$. So we suppose that $w \in V(G_1)$.
+Observe that the vertex $w \in (P \cup Q) \backslash V(G_2)$ is adjacent to $w_1$ and $w_4$. Let's take care of the position of $w$: assume firstly that $w \notin V(G_1)$, which implies that $w_1, w_4 \in V(C_1)$ because $w_1, w_4 \in V(C_2)$. Otherwise, edges $ww_1$ and $ww_4$ will build crosses with $C_1$. From the \textbf{Figure 19.} informed that $w_1$ and $w_4$ cannot be adjacent on the grounds that if this would not be the case, $w_1w_4w$ will form a triangle, which is a contradiction. Thereby, there is a common neighbor of $w_1$ and $w_4$ in $C_2$ which can replace $w$. So we suppose that $w \in V(G_1)$.
 
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
     \centering %图片居中
-    \includegraphics[width=0.6\textwidth]{figure/temp1.png} 
-    \caption{$C_2$: $w_1w_2w_3w_4w_5w_6$ } %最终文档中希望显示的图片标题
+    \includegraphics[width=0.65\textwidth]{figure/contradictionlemma2.2.1.png} 
+    \caption{$C_2$: $w_1, w_4$ has a common neighbor $q$ } %最终文档中希望显示的图片标题
     \label{figure} %用于文内引用的标签
 \end{figure}
-Provided that there is common neighbor $w_2$ of $w_1, w_4$, $R$ can be completed by $w_1w_2w_4$, which is a contradiction to the choice of $C_2$. Hence, we conclude that there are two vertices $w_2, w_3$ between $w_1$ and $w_4$ as in \textbf{Figure 21}. Let $w_1w_2w_3w_4w_5w_6$ be the vertices of $C_2$. What's more, we assume that $w_1w_2w_3w_4w$ forms a 5-face as well. In addition, $P \cup Q$ doesn't contains $w_5, w_6$ as shown in \textbf{Figure 21}. At the same time, $P \cup Q$ doesn't contain any vertex $v \in V(G) \backslash V(G_2)$ except $w$. $w_1, w_4$??
+
+Provided that there is common neighbor $q$ of $w_1, w_4$ in $C_2$, call it $q$ as in \textbf{Figure 20}. Then $w_1qw_4w$ would form a 4-cycle which is a contradiction because as mentioned before there is no 4-cycle in $G_1$ except possibly $C_1$. Hence, we conclude that there are two vertices $w_2, w_3$ between $w_1$ and $w_4$ as in \textbf{Figure 21}. 
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+    \centering %图片居中
+    \includegraphics[width=0.6\textwidth]{figure/contradictionlemma2.2.2.png} 
+    \caption{Between $w_1, w_4$ there are two vertices $w_2w_3$ on $C_2$ } %最终文档中希望显示的图片标题
+    \label{figure} %用于文内引用的标签
+\end{figure}
+Let $w_1w_2w_3w_4w_5w_6$ be the vertices of $C_2$. What's more, the cycle bounded by $w_1w_2w_3w_4w$ has to be a 5-face. Otherwise, it would be a separating cycle, which is a contradiction to the minimality of $C_1$. Notice that inside $P \cup Q$ the only vertex $w$ is not inside $C_2$. However, inside $C_2$, there are two more vertices $w_5, w_6$ which are not inside $P \cup Q$. So we should have chosen $P \cup Q$ instead of $C_2$ because of the minimality of $C_2$. which is a contradiction.
 \end{itemize}
 \end{proof}
 %----------------------------------------------------------------------
@@ -322,17 +322,144 @@ Let $G$ as stated to be a triangle-free graph and we'll prove this theorem by in
     
     \item if the minimum degree is two: assume the vertex is $v \in V(G)$ and its neighbors $u, w \in V(G)$. Analogous to the former case, we remove the vertex $v$ from $G$ to obtain the new graph $G^{'}$. Suppose the coloring of $u, w$ is $c_1$ and $c_2$. If $c_1 = c_2$, then we can color $v$ randomly with a color different from $c_1(c_2)$. But if $c_1 \ne c_2$, we can accordingly assign $c_3$ to $v$. 
 \end{itemize}
-\textbf{Case 2:}  If every vertex $v$ has degree at least 3, we can apply lemma 4.3 on it. Thus, the theorem follows the induction on $G \backslash v$ by identifying pairs diagonally opposite vertices. And the way of coloring is already shown in the third section \textbf{Safety of multigram}: reconstruction step. 
+\textbf{Case 2:}  If every vertex $v$ has degree at least 3, we can apply \textbf{Lemma 4.3.} on it. Thus, the theorem follows the induction on $G \backslash v$ by identifying pairs diagonally opposite vertices. And the way of coloring is already shown in the third section \textbf{Safety of multigram}: reconstruction step. 
 
 \end{proof}
 %----------------------------------------------------------------------
-\section{Graph representation}
-We'll use the same graph representation as in the third section from the original paper. \cite{dvorak2013threecoloring}
+\section{Implementation}
+\subsection{Naive polynomial-time implementation}
+\begin{proof}[Description]
+The brute force method is that we start with a vertex $v \in V$ and just go through all its adjacent vertices which should be pairwise distinct. In this step, we will use multiple inner for-loops to achieve that. Notice that the case pentagram is kind of special. We need to check additionally whether $v_1, v_2, v_3, v_4$ have degree exactly three. Once we detect a multigram, then we should check the condition whether the found multigram is safe or not. \footnote{ The entire code can be found here: \href{https://github.com/qiaw99/3-color-linear-time}{https://github.com/qiaw99/3-color-linear-time}}
+\begin{itemize}
+    \item Found multigram is tetragram/hexagram. We can use the same way as above by using two for-loops to go through all neighbors and neighbors of neighbors so that we can check that there is no path of length at most three from $v_1$ to $v_3$ which is not part of the tetragram/hexagram. This can be done in $\mathcal{O}(m^2)$ time, where $m = |E|$.
+    
+    \item Found multigram is pentagram. As mentioned in the former case, we can also use two for-loops to check whether there is no path in $G \backslash \{v_1, v_2, v_3, v_4\}$ of length at most three from $x_2$ to $v_5$, and every path in $G \backslash \{v_1, v_2, v_3, v_4\}$ of length at most three from $x_3$ to $x_4$ has length exactly two. This can be done in $\mathcal{O}(m^2)$ time as well.
+\end{itemize}
+\end{proof}
+
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+
+\SetKwInput{KwInput}{Input}                % Set the Input
+\SetKwInput{KwOutput}{Output}              % set the Output
+
+\begin{algorithm}[H]
+\DontPrintSemicolon
+  \KwInput{A triangle-free planar graph}
+  %\KwOutput{A 3-coloring of $G$}
+  adj := Adjacency list \\
+  \For{$v \in V$}    
+    { 
+        \For{$s \in adj[v]$}{
+            \For{$t \in adj[s]$}{
+                \For{$u \in adj[t]$}{
+\tcp*{Detect tetragrams}
+                    \If{$u \in adj[v]$}{
+                        \If{the detected tetragram is safe}{
+                            Get the right pair of diagonally opposite vertices and identify them.
+                        }
+                        
+                    } \Else{
+                        \For{$x \in adj[u]$}{
+                            \tcp*{Detect pentagrams}
+                            \If{$x \in adj[u]$}{
+                                \If{the detected pentagram is safe}{
+                            Get the right pair of diagonally opposite vertices and identify them.
+                        }
+                            } \Else{
+                                \For{$y \in adj[x]$}{
+                                \tcp*{Detect hexagrams}
+                                \If{$y \in adj[x]$}{
+                                    \If{the detected hexagram is safe}{
+                            Get the right pair of diagonally opposite vertices and identify them.
+                        }
+                                }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+\caption{The naive algorithm to detect multigrams and reduce the size of graph}
+\end{algorithm}
+Note that according to the previous description, this brute force algorithm for detecting multigrams and identifying vertices will take $\mathcal{O}(m^8)$
+ time.\\
+ 
+ We will give a small example how the program executes the given input graph step by step. The followings \textbf{Figures 22 - 25} are the input graph and its result. The input graph contains two reducible multigrams: a tetragram and a pentagram.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=1\textwidth]{figure/input.png}
+\caption{\footnotesize The input graph}
+\end{minipage}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=1\textwidth]{figure/propercoloring.png}
+\caption{\footnotesize The proper coloring}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=1\textwidth]{figure/program identify.png}
+\caption{\footnotesize  Detect multigrams and identify vertices \footnote{Implemented in Java (JDK 1.8)}}
+\end{minipage}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=0.6\textwidth]{figure/coloring.png}
+\caption{\footnotesize  The corresponding coloring}
+\end{minipage}
+\end{figure}
+
+\subsection{Improvement to the Brute-Force algorithm}
+We can actually use some tricks to detect safe tetragrams and hexagrams more efficiently. Recall that tetragrams or hexagrams are called safe, if every path in $G$ of length at most three with ends $v_1$ and $v_3$ is a subgraph of cycle $v_1v_2...v_k$ (where $k = 4$ or $6$).
+\begin{itemize}
+    \item Tetragram. We can use two loops to go through all edges $e_1, e_2 \in E$, where $e_1 \ne e_2$. As the first step, we have to check whether $e_1, e_2$ forms a cycle. Next, we should check the condition of safety by using BFS. Observe that the running time of this improved algorithm for detecting tetragrams is $\mathcal{O}(m^3)$, since BFS takes just $\mathcal{O}(m)$ time.
+    \SetCommentSty{mycommfont}
+    
+    \SetKwInput{KwInput}{Input}                % Set the Input
+    \SetKwInput{KwOutput}{Output}              % set the Output
+    
+    \begin{algorithm}[H]
+    \DontPrintSemicolon
+      \KwInput{A triangle-free planar graph}
+      %\KwOutput{A 3-coloring of $G$}
+      adj := Adjacency list \\
+      \For{every $(x, y) \in E$}    
+        { 
+            \For{every $(s, t) \in E$ with $(s, t) \ne (x, y)$}{
+                \If{($x \in adj[s]$ and $y \in adj[t]$) or ($x \in adj[t]$ and $y \in adj[s]$) }{
+                    Do BFS to get all paths of length at most three from $a$ to $b$, where $a, b \in \{x, y, s, t\}$ and $a, b$ are distinct \\
+                    \If{$\exists a, b: $ all path from $a$ to $b$ of length at most three are part of tetragram}{
+                        ($a, c, b, d$) is a safe tetragram, where $c, d \in \{x, y, s, t\} \backslash \{a, b\}$
+                    }
+                }
+            }
+        }
+    \caption{Improvements to detect tetragrams}
+    \end{algorithm}
+    
+    \item Hexagram. The efficient way to detect hexagrams is analog to the previous case. We will use three loops to go through all edges $e_1, e_2, e_3 \in E$, where $e_1 \ne e_2 \ne e_3$. Firstly, we check if $e_1, e_2, e_3$ builds a cycle. Then we have to take care of the safety of the hexagram by using BFS as well. Totally, the running time is $\mathcal{O}(m^4)$. 
+    
+    \item Pentagram. We use two loops to go through all edges $e_1, e_2 \in E$, where $e_1 \ne e_2$ and another loop to go through all remaining vertices. Then, we apply BFS to check wether there is a path in $G \backslash \{v_1, v_2, v_3, v_4\}$ of length at most three from $x_2$ to $v_5$ and every path in $G \backslash \{v_1, v_2, v_3, v_4\}$ of length at most three has length exactly two. Therefore, the running time is $\mathcal{O}(m^4)$.
+
+\end{itemize}
+So the running time can be improved to $\mathcal{O}(m^4)$ in the worst case. 
+\subsection{Reconstruction step}
+The algorithm will keep detecting all reducible multigrams until there is no multigram within the graph $G^{'}$ obtaining by identifying vertices in $G$. At this moment, the graph is easy to be colored. While identifying vertices, we will maintain two lists: one is to store the graph each time and the other is to store the pairs of identified vertices, with which we can reconstruct the graph coloring according to the subsection \textbf{3.2.}
 
 %----------------------------------------------------------------------
-\section{The linear-time algorithm}
+\section{Improvements from the original paper}
+
+As explained in the second section that in our algorithm, we will find some reducible multigrams to cut down the size of graph $G$. We've seen the algorithms in the fifth section and know that safety is not strong enough to get a linear-time algorithm. The difficulty now is how to efficiently check whether the found multigrams are safe, for which we will introduce another concept called \textit{security} that allows us testing safety in constant time. Before that, let's give a few more definitions first.
+
 \subsection{Definitions}
-As explained in the second section that in our algorithm, we will find some reducible multigrams to cut down the size of graph $G$. The difficulty now is how to efficiently check whether the found multigrams are safe, for which we will introduce another concept called \textit{security} that allows us testing safety in constant time. Before that, let's give a few more definitions:
 \begin{definition}
 A \textit{monogram} in the graph $G$ is the one-vertex sequence consisting of a vertex $v \in V(G)$ and has degree at most two. \cite{dvorak2013threecoloring} 
 \end{definition}
@@ -410,7 +537,7 @@ Next, we'll explain what's the meaning of $C$-secure and define a smaller graph 
 \end{itemize}
 
 \begin{definition}
-A \textit{null graph} is a graph which consists only the isolated vertices. \cite{null}
+A graph $G$ is \textit{null} if $V(G)$ = $\emptyset$. \cite{wu2020introduction}
 \end{definition}
 
 \begin{definition}
@@ -418,7 +545,7 @@ A multigram is \textit{secure}, if it is $K_0$-secure, where $K_0$ is the null g
 \end{definition}
 
 \subsection{Constant-time operations}
-Noted that the followings lemmas will not be proved in this paper, see proofs from the original paper.\cite{dvorak2013threecoloring}
+Note that the following lemmas will not be proved in this paper, see proofs from the original paper.
 \begin{lemma}
 Let $G$ be a triangle-free plane graph, let $\gamma$ be a safe multigram in $G$, and let $G^{'}$ be the $\gamma$-reduction of $G$. Then $G^{'}$ is triangle-free, and every 3-coloring of $G^{'}$ can be converted to a 3-coloring of $G$ in constant time. Moreover, if $\gamma$ is secure, then $G^{'}$ can be regarded as having been obtained from $G$ by deleting at most 126 edges, adding at most 116 edges, and deleting at least one isolated vertex.\cite{dvorak2013threecoloring}
 \end{lemma}
@@ -428,7 +555,7 @@ Let $G$ be a triangle-free plane graph, let $\gamma$ be a safe multigram in $G$,
 \end{definition}
 
 \begin{claim}
-Every vertex $v$ there are at most $1 + 4 \cdot 59 + 59^{2} + 59^{3} + 59^{4}$ vertices that are close to $v$, and for every edge $e$, there are at most 10 vertices that are close to $e$. \cite{dvorak2013threecoloring}
+For every vertex $v$ there are at most $1 + 4 \cdot 59 + 59^{2} + 59^{3} + 59^{4}$ vertices that are close to $v$, and for every edge $e$, there are at most 10 vertices that are close to $e$. \cite{dvorak2013threecoloring}
 \end{claim}
 \begin{proof}
     
@@ -445,14 +572,14 @@ Every vertex $v$ there are at most $1 + 4 \cdot 59 + 59^{2} + 59^{3} + 59^{4}$ v
     \caption{Case 2}
     \end{minipage}
     \end{figure}
-    Observed that in the \textbf{Figure 23}, vertex 1 can have at most 59 neighbors, vertex 2 can have at most $59^{2}$ neighbors, vertex 3 can have at most $59^{3}$ neighbors and vertex 4 can have at most $59^{4}$ neighbors. In the \textbf{Figure 24}, vertex 1 and 2 can totally have at most 59 neighbors, while vertex 3 and 4 each can have 59 neighbors. But vertex 5 can have only one vertex. So all things considered there are at most $1 + 4 \cdot 59 + 59^{2} + 59^{3} + 59^{4}$ vertices that are close to $v$.
+    Observe that in the \textbf{Figure 27}, vertex 1 can have at most 59 neighbors, vertex 2 can have at most $59^{2}$ neighbors, vertex 3 can have at most $59^{3}$ neighbors and vertex 4 can have at most $59^{4}$ neighbors. In the \textbf{Figure 28}, vertex 1 and 2 can totally have at most 59 neighbors, while vertex 3 and 4 each can have 59 neighbors. But vertex 5 can have only one vertex. So all things considered there are at most $1 + 4 \cdot 59 + 59^{2} + 59^{3} + 59^{4}$ vertices that are close to $v$.
     \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
     \centering %图片居中
     \includegraphics[width=0.28\textwidth]{figure/593.png} 
     \caption{Vertices close to edge $e$} %最终文档中希望显示的图片标题
     \label{figure} %用于文内引用的标签
     \end{figure}
-    Noted that both $v$ and $e$ have to belong to the same walk of the same face. In addition, there are at most two faces that incident with edge $e$, which follows that there are at most 10 vertices that are close to edge $e$.
+    Note that both $v$ and $e$ have to belong to the same walk of the same face. In addition, there are at most two faces that incident with edge $e$, which follows that there are at most 10 vertices that are close to edge $e$.
 \end{proof}
 
 \begin{lemma}
@@ -472,7 +599,7 @@ See the proof from the original paper. \cite{dvorak2013threecoloring}
 
 \subsection{The algorithm}
 Now, let's focus on the linear-time algorithm with running time $\mathcal{O}(|V(G)|)$:
-we may assume that the input graph is triangle-free, because we can use the algorithm which was designed by Hopcroft, John; Tarjan, Robert E \cite{10.1145/321850.321852} to test planarity in $\mathcal{O}(n)$ time by \textit{path addition method}. So it holds our algorithm's running time in linear-time. 
+we may assume that the input graph is triangle-free, because we can use the algorithm which was designed by Hopcroft and Tarjan \cite{10.1145/321850.321852} to test planarity in $\mathcal{O}(n)$ time by \textit{path addition method}. So it holds our algorithm's running time in linear-time. 
 %%% Coloring the comment as blue
 \newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
 \SetCommentSty{mycommfont}
@@ -510,7 +637,7 @@ we may assume that the input graph is triangle-free, because we can use the algo
    }
 \caption{3-coloring in triangle-free planar graph}
 \end{algorithm}
-\begin{proof}[Description] We initialize $L$ as the list of vertices with degree at most three. During the execution of the algorithm, $L$ includes all pivots of all secure multigrams. The algorithm works as follows: remove randomly a vertex $v$ from $L$ and check whether there is a multigram whose pivot is $v$, which can be done in constant time according to \textbf{Lemma 6.2.} If there is no such multigram, then we go to the next iteration. Otherwise, let $\gamma$ be such multigram and $G^{'}$ be the $\gamma$-reduction of $G$, which can be done in constant time according to \textbf{Lemma 6.1.} \textbf{Lemma 6.3.} can guarantee that $L$ includes all pivots of all secure multigrams. After we get the coloring of $G^{'}$, it can be converted to the coloring of $G$. And we'll do this until we get the coloring of the original input graph $G$. Noticed that the number of vertices added to $L$ is proportional to the number of vertices removed from $G$. Hence, the running time is $\mathcal{O}(|V(G)|)$, as desired.
+\begin{proof}[Description] We initialize $L$ as the list of vertices with degree at most three. During the execution of the algorithm, $L$ includes all pivots of all secure multigrams. The algorithm works as follows: remove randomly a vertex $v$ from $L$ and check whether there is a multigram whose pivot is $v$, which can be done in constant time according to \textbf{Lemma 6.2.} If there is no such multigram, then we go to the next iteration. Otherwise, let $\gamma$ be such multigram and $G^{'}$ be the $\gamma$-reduction of $G$, which can be done in constant time according to \textbf{Lemma 6.1.} \textbf{Lemma 6.3.} can guarantee that $L$ includes all pivots of all secure multigrams. After we get the coloring of $G^{'}$, it can be converted to the coloring of $G$. And we'll do this until we get the coloring of the original input graph $G$. Notice that the number of vertices added to $L$ is proportional to the number of vertices removed from $G$. Hence, the running time is $\mathcal{O}(|V(G)|)$, as desired.
 \end{proof}
 
 \begin{algorithm}[H]
@@ -525,11 +652,10 @@ The description is exactly the same, except that we replace
 “secure” by “$C$-secure” and appeal to \textbf{Lemma 7.1} rather than \textbf{Theorem 6.4.} And its running time is still $\mathcal{O}(|V(G)|)$.\cite{dvorak2013threecoloring}
 \end{proof}
 
-\subsection{Implementation}
 %----------------------------------------------------------------------
 \section{Proof of correctness}
 \begin{definition}
-\textit{$f$ is opposite to $xy$}, if $xy$ is an edge in a planar graph, and $f$ is a face of $G$ incident with $y$ but not with the edge $xy$. Noted that this definition is not symmetric: $f$ is opposite to $xy$, but $f$ is \textit{not} opposite to $yx$. \cite{dvorak2013threecoloring}
+\textit{$f$ is opposite to $xy$}, if $xy$ is an edge in a planar graph, and $f$ is a face of $G$ incident with $y$ but not with the edge $xy$. Note that this definition is not symmetric: $f$ is opposite to $xy$, but $f$ is \textit{not} opposite to $yx$. \cite{dvorak2013threecoloring}
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
 \centering %图片居中
 \includegraphics[width=0.3\textwidth]{figure/opposite.png} 
@@ -596,7 +722,7 @@ The reason of first inequality is that all vertices of cycle $C$ have at least d
 \end{proof}
 
 \begin{definition}
-Two edges $e_1$, $e_2$ in $G$ are \textit{consecutive}, if they form a path in $G$. \cite{BUJTAS2012561}
+Given the graph $G$, two edges $e_1 = v_1v_2$, $e_2 = v_3v_4$, where $v_1, v_2, v_3, v_4 \in V(G)$ and $e_1, e_2 \in E(G), \ e_1 \ne e_2$, are \textit{consecutive}, if $v_2 = v_3$.
 \end{definition}
 
 \begin{definition}
@@ -651,7 +777,7 @@ We will observe the following cases:
         \caption{Case 1.2.2} %最终文档中希望显示的图片标题
         \label{figure} %用于文内引用的标签
     \end{figure}
-    Noticed that $v$ has remaining ($d - 1$) neighbors except $x$. In the worst case, all ($d - 1$) neighbors have degree exactly three. Thus, $v$ will send out at most ($d - 1$) units to each face $f$ that $f$ is opposite to $vz$, $\forall z \in Z$, where $Z$ is the set of all neighbors of $v$ except x. Furthermore, observed from \textbf{Figure 28} that, ($d - 1$) edges(neighbors) can at most form ($d - 2$) $xv$-opposite faces. As a result, $v$ sends out at most ($d - 2 + d - 1$) = $2d - 3$ units.\\
+    Notice that $v$ has remaining ($d - 1$) neighbors except $x$. In the worst case, all ($d - 1$) neighbors have degree exactly three. Thus, $v$ will send out at most ($d - 1$) units to each face $f$ that $f$ is opposite to $vz$, $\forall z \in Z$, where $Z$ is the set of all neighbors of $v$ except x. Furthermore, observe from \textbf{Figure 32} that, ($d - 1$) edges(neighbors) can at most form ($d - 2$) $xv$-opposite faces. As a result, $v$ sends out at most ($d - 2 + d - 1$) = $2d - 3$ units.\\
     $\longrightarrow$ The final charge of $v = 9d - 36 + 5 - (2d - 3) = 7d - 28 \geq 0$ is also non-negative.
     \item[Case 2.1:] \textit{\textbf{$v$ is big and $v \notin C.$}} As stated in the rule (B), $v$ sends $3d$ units to all incident faces and at most 4$\cdot$6 = 24 units to all 4-faces that share an edge of $C$, since $C$ has length at most six. Additionally, $v$ sends at most 5$d$ units using the rule (D),
     \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
@@ -661,7 +787,7 @@ We will observe the following cases:
         \label{figure} %用于文内引用的标签
     \end{figure}
     The reason is that each neighbor $y$ of $v$ can have degree three and be $C$-admissible which can form at most two unique faces opposite to $vy$. In addition, every vertex $y$ can have at most three neighbors. Each neighbor $z$ can also be $C$-admissible of degree three. Hence, there are at most three faces opposite to $yz$ for each $y$. In conclusion, $v$ sends out at most five units for each neighbor, which deduces $v$ can send at most 5$d$ units using rule (D). Or using rule (E), provided that all neighbors of $v$ can be $C$-admissible and have degree at least 4. As a consequence, the final charge of $v$ = $9d -36 - 3d - 24 - 5d = d - 60 \geq 0$, since $v$ is big.
-    \item[Case 2.2:] \textit{\textbf{$v \in C.$}} The charge of $v$ at the beginning is $8d - 19$. Noted that if $d = 2$, by the rule (A), $v$ will receive three units. So we assume that is not the case. Otherwise, according to rule (A), $v$ sends out 3($d-3$) units by the rule (C), because $v$ has two neighbors that are on $C$, which leads that the remaining ($d-2$) neighbors can form ($d - 3$) $v$-interior faces. Besides, $v$ sends 5($d - 2$) units using rule (D) or (E). The argument is similar to the former case 2.2: there are at most ($d-2$) $C$-admissible neighbors of $v$. In consequence, the final charge of $v$ = $8d - 19 - 3(d - 3) - 5(d - 2) = 0$.
+    \item[Case 2.2:] \textit{\textbf{$v \in C.$}} The charge of $v$ at the beginning is $8d - 19$. Note that if $d = 2$, by the rule (A), $v$ will receive three units. So we assume that is not the case. Otherwise, according to rule (A), $v$ sends out 3($d-3$) units by the rule (C), because $v$ has two neighbors that are on $C$, which leads that the remaining ($d-2$) neighbors can form ($d - 3$) $v$-interior faces. Besides, $v$ sends 5($d - 2$) units using rule (D) or (E). The argument is similar to the former case 2.2: there are at most ($d-2$) $C$-admissible neighbors of $v$. In consequence, the final charge of $v$ = $8d - 19 - 3(d - 3) - 5(d - 2) = 0$.
 \end{itemize}
 \end{proof}
 
@@ -669,7 +795,7 @@ We will observe the following cases:
 Every face of length $\ell \geq 6$ has non-negative final charge.
 \end{claim}
 \begin{proof}
-Noticed from rule (A) that each face $f \ne f_0$ can just send at most 3$\ell$ units. So the final charge = $9\ell - 36 - 3\ell = 6\ell - 36 \geq 0$. 
+Notice from rule (A) that each face $f \ne f_0$ can just send at most 3$\ell$ units. So the final charge = $9\ell - 36 - 3\ell = 6\ell - 36 \geq 0$. 
 \end{proof}
 From the \textbf{Claim 9} we prove that there is a face $f \ne f_0$ in G of length at most five that has strictly negative final charge.
 
@@ -691,11 +817,11 @@ Let $u_1u_2u_3u_4$ be the bounded face, where $u_1u_2u_3$ are consecutive vertic
     \caption{Cycle $C$ and $C^{'}$} %最终文档中希望显示的图片标题
     \label{figure} %用于文内引用的标签
 \end{figure}
-As above mentioned, $u_4$ has degree at least three, $C^{'}$ can't form a face, which follows from \textbf{Corollary 7.1.1} that $C^{'}$ has length six and contains exactly one vertex $v_4$. Next, we order the remaining three vertices on $C$ as in \textbf{Figure 30} with $v_1v_2v_3$ so that the original cycle $C$ is $u_1u_2u_3v_1v_2v_3$ and $v_4$ is adjacent to $u_4, v_1, v_3$. Observed that:
+As above mentioned, $u_4$ has degree at least three, $C^{'}$ can't form a face, which follows from \textbf{Corollary 7.1.1} that $C^{'}$ has length six and contains exactly one vertex $v_4$. Next, we order the remaining three vertices on $C$ as in \textbf{Figure 34} with $v_1v_2v_3$ so that the original cycle $C$ is $u_1u_2u_3v_1v_2v_3$ and $v_4$ is adjacent to $u_4, v_1, v_3$. Observe that:
 \begin{itemize}
     \item[(1)] ($u_4, u_1, u_2, u_3$) is safe, since there is not path at most three other than $u_4u_1u_2$ and $u_4u_3u_2$ that ends with $u_2$ and $u_4$. 
     \item[(2)] As proved above, $u_4$ is $C$-admissible and has degree exactly three.
-    \item[(3)] Noticed from the figure that the neighbor $v_4$ of $u_4$ is not on $C$ and has degree exactly three as well. It follows that $v_4$ is also $C$-admissible.
+    \item[(3)] Notice from the figure that the neighbor $v_4$ of $u_4$ is not on $C$ and has degree exactly three as well. It follows that $v_4$ is also $C$-admissible.
     \item[(4)] $v_4$ belongs to the 4-face($u_4, u_1, v_3, v_2$) incident with $u_4v_4$. 
 \end{itemize}
 Resultantly, ($u_4, u_1, u_2, u_3$) is a $C$-secure tetragram, which is a contradiction to the supposition that there is no $C$-secure multigram in $G$.
@@ -722,7 +848,7 @@ Suppose $s$ is the number of sources and $t$ is the number of sinks. Then we hav
     \item[Case 1.1: ] \textit{\textbf{$f$ has length five and $v_5$ is $C$-admissible of degree three.}} Let $v_1v_2v_3v_4v_5$ be the cycle that bounds $f$. For $f$ has strictly negative final charge in the end, there are at least four sinks. Hence, we may assume that $v_1, v_2, v_3, v_4$ are sinks. In other word, they are $C$-admissible and have degree exactly three. In addition, ($v_1, v_2, v_3, v_4, v_5$) is a pentagram according to the definition. Let $x_i$ be the neighbor of $v_i$ except $v_{i-1}$ and $v_{i+1}$, $\forall i \in \{1, 2, 3, 4\}$, where $v_0 = v_5$. It infers that $x_1, x_2, x_3, x_4$ are distinct and pairwise non-adjacent. The reason is as follows:\\
     \textit{\textbf{(Case 1)}} If $x_i$ and $x_{i+1}$ would be adjacent, it will create a $C$-secure tetragram with vertices $v_i$ and $v_{i+1}$, which is a contradiction.\\
     \textit{\textbf{(Case 2)}} If $x_i$ and $x_{i+2}$ would be adjacent, from \textbf{Corollary 7.1.1.} that $x_ix_{i+2}v_{i+2}v_{i+1}v_{i}$ bounds a face. However, it contains a vertex $x_{i+1}$, which is a contradiction as well.\\
-    Noticed from (Case 2) that there is no path from $x_1$ to $x_3$ with length two, then ($v_1, v_2, v_3, v_4, v_5$) is a $C$-secure decagram.
+    Notice from (Case 2) that there is no path from $x_1$ to $x_3$ with length two, then ($v_1, v_2, v_3, v_4, v_5$) is a $C$-secure decagram.
     
     
     
@@ -746,9 +872,9 @@ Consequently, from both cases above that $v_5$ is either not $C$-admissible or h
     \end{figure}
 From \textbf{Corollary 7.1.1.} that $K$ contains at most one vertex. On the grounds of this, $x_1$ is adjacent to $x_2$(the argument is the same as in the case 1.2), which is a contradiction.
 
-\item considering the path of length at most three from $x_3$ to $x_4$ that can be completed to a cycle $K^{'}$ ($x_3v_3v_4x_4ab$) by the path $x_4v_4v_3x_3$ supposing that the length of cycle is six. Observed that $v_3, v_4$ are sinks, so $v_3$ has degree exactly three and $x_3, x_4$ are $C$-admissible. Thus, the hexagram ($v_4, v_3, x_3, b, a, x_4$) is $C$-secure, which is a contradiction. It follows that the path from $x_3$ to $x_4$ can only be two.
+\item considering the path of length at most three from $x_3$ to $x_4$ that can be completed to a cycle $K^{'}$ ($x_3v_3v_4x_4ab$) by the path $x_4v_4v_3x_3$ supposing that the length of cycle is six. Observe that $v_3, v_4$ are sinks, so $v_3$ has degree exactly three and $x_3, x_4$ are $C$-admissible. Thus, the hexagram ($v_4, v_3, x_3, b, a, x_4$) is $C$-secure, which is a contradiction. It follows that the path from $x_3$ to $x_4$ can only be two.
 \end{itemize}
-According to the above proof, we have shown that the pentagram $(v_1, v_2, v_3, v_4, v_5)$ is safe. By symmetry the pentagram $(v_4, v_3, v_2, v_1, v_5)$ is safe as well. Meanwhile, $x_1, x_2, x_3, x_4$ are $C$-admissible, for $v_1, v_2, v_3, v_4$ are sinks. Provided that the neighbor $x_i$ of $v_i$ for $i \in \{1, 2, 3, 4\}$ has a $C$-forbidden neighbor $u$, then $f$ will receive one unit either from rule (D) if $u$ has degree exactly three or (F) if $u$ has degree at least four. Noticed that $v_5$ has degree at least four and if $v_5$ has a $C$-forbidden neighbor, then $f$ will receive one unit by rule (F). Noted that initially, $f$ has charge 3. Hence, at most two vertices among $x_1, x_2, x_3, x_4, v_5$ have a $C$-forbidden neighbor. In consequence, either $(v_1, v_2, v_3, v_4, v_5)$ or $(v_4, v_3, v_2, v_1, v_5)$ is a $C$-secure pentagram, which is a contradiction.\\ \\
+According to the above proof, we have shown that the pentagram $(v_1, v_2, v_3, v_4, v_5)$ is safe. By symmetry the pentagram $(v_4, v_3, v_2, v_1, v_5)$ is safe as well. Meanwhile, $x_1, x_2, x_3, x_4$ are $C$-admissible, for $v_1, v_2, v_3, v_4$ are sinks. Provided that the neighbor $x_i$ of $v_i$ for $i \in \{1, 2, 3, 4\}$ has a $C$-forbidden neighbor $u$, then $f$ will receive one unit either from rule (D) if $u$ has degree exactly three or (F) if $u$ has degree at least four. Notice that $v_5$ has degree at least four and if $v_5$ has a $C$-forbidden neighbor, then $f$ will receive one unit by rule (F). Note that initially, $f$ has charge 3. Hence, at most two vertices among $x_1, x_2, x_3, x_4, v_5$ have a $C$-forbidden neighbor. In consequence, either $(v_1, v_2, v_3, v_4, v_5)$ or $(v_4, v_3, v_2, v_1, v_5)$ is a $C$-secure pentagram, which is a contradiction.\\ \\
 We've proved that $f$ has then length exactly four:
    
 \begin{itemize}
@@ -758,7 +884,7 @@ We've proved that $f$ has then length exactly four:
         
         \item \textit{\textbf{$v$ has a $C$-forbidden neighbor $u$.}} 
             \begin{itemize}
-                \item $u \notin V(C)$. Therefore, $u$ is big and $f$ receives four units from $u$, since $f$ is a 4-face and shares an edge $v_3v_4$ with $C$ by rule (B). At this moment, the charge of $f$ = $-3 + 4 = 1$. Hence, $v_2$ has to be a sink so that the charge of $f$ = $1 - 3 = -2$. Let $v^{'}$ the neighbor of $v_2$ other than $v_1$ and $v_3$. As the same argument, $v^{'}$ has a $C$-forbidden neighbor $u^{'}$ as well. Noticed that each $u$ and $u^{'}$ will send one unit to $f$ either by rule (D) or (F) depending on their degree such that the final charge of $f = -2 + 2 = 0$ is non-negative, which is a contradiction. 
+                \item $u \notin V(C)$. Therefore, $u$ is big and $f$ receives four units from $u$, since $f$ is a 4-face and shares an edge $v_3v_4$ with $C$ by rule (B). At this moment, the charge of $f$ = $-3 + 4 = 1$. Hence, $v_2$ has to be a sink so that the charge of $f$ = $1 - 3 = -2$. Let $v^{'}$ the neighbor of $v_2$ other than $v_1$ and $v_3$. As the same argument, $v^{'}$ has a $C$-forbidden neighbor $u^{'}$ as well. Notice that each $u$ and $u^{'}$ will send one unit to $f$ either by rule (D) or (F) depending on their degree such that the final charge of $f = -2 + 2 = 0$ is non-negative, which is a contradiction. 
                 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
                     \centering %图片居中
                     \includegraphics[width=0.5 \textwidth]{figure/notcsecuretetragram.png} 
@@ -779,8 +905,8 @@ We've proved that $f$ has then length exactly four:
             \caption{$C, C_1, C_2$} %最终文档中希望显示的图片标题
             \label{figure} %用于文内引用的标签
         \end{figure}
-        Observed from the \textbf{Figure 34} that $v_2$ is contained in $C_2$. So from \textbf{Corollary 7.1.1.} that the length of $C_2$ is at most six. Assume that the length of $C_2$ is exactly six, it results that $v_2$ has degree three and is adjacent to $u$, which is a contradiction.\\ \\
-        For this reason, the length of $C_2$ is at least seven. We conclude that the length of $C_1$ is at most 5, because the length of $C$ is at most six: $\ell_{C_1} + 7 - 2 \cdot 3 \leq 6 \Longleftrightarrow \ell_{C_1} \leq 5$. By means of the constraint of $u$, the length of $C_1$ is exactly five as in \textbf{Figure 34}. Thereby, there is exactly a vertex $z$ that is adjacent to $u$, $v_4$ and has degree two. If $z$ would have degree at least three, then it would form a triangle or against the planarity. Let $\gamma$ be the tetragram and $f(\gamma)$ be the face that is bounded by $C_1$. 
+        Observe from the \textbf{Figure 38} that $v_2$ is contained in $C_2$. So from \textbf{Corollary 7.1.1.} that the length of $C_2$ is at most six. Assume that the length of $C_2$ is exactly six, it results that $v_2$ has degree three and is adjacent to $u$, which is a contradiction.\\ \\
+        For this reason, the length of $C_2$ is at least seven. We conclude that the length of $C_1$ is at most 5, because the length of $C$ is at most six: $\ell_{C_1} + 7 - 2 \cdot 3 \leq 6 \Longleftrightarrow \ell_{C_1} \leq 5$. By means of the constraint of $u$, the length of $C_1$ is exactly five as in \textbf{Figure 38}. Thereby, there is exactly a vertex $z$ that is adjacent to $u$, $v_4$ and has degree two. If $z$ would have degree at least three, then it would form a triangle or against the planarity. Let $\gamma$ be the tetragram and $f(\gamma)$ be the face that is bounded by $C_1$. 
         \begin{definition}
         A tetragram $\gamma$ ($v_1, v_2, v_3, v_4$) is \textit{bad}, if $f(\gamma)$ is defined. 
         \end{definition}
@@ -802,8 +928,8 @@ We've proved that $f$ has then length exactly four:
             \caption{$C$-secure octagram ($v, v^{'}, v_2, v_1$)} %最终文档中希望显示的图片标题
             \label{figure} %用于文内引用的标签
         \end{figure}
-        Noticed that $v_3, v_4, u$ have degree at least three. From \textbf{Corollary 7.1.2.} informed that the total charge of $G$ is then at most -3, which follows $b \geq 3$. There must be another bad tetragram for $b > 1$. Hence, the final charge of $G$ is at most -4. It leads $b \geq 4$. Let $u^{'}$ be the unique neighbor of $u$ in $C \backslash z$. Noticed that $v_3v_4$ and $uu^{'}$ are the only edges of $C$ 
-       incident to a bad tetragram. We conclude that $G$ has a vertex $v^{'}$ of degree three with neighbors $v, v_2, u^{'}$ and hence $v^{'}$ is a sink and $C$-admissible. And it implies that according to the definition of sink, $v_2$ is then $C$-admissible. Noticed that $u^{'}v^{'}v_2v_3t$ bounds also a face which is similar to the 5-face $zv_4v_1vu$. It follows that $(v, v^{'}, v_2, v_1)$ is a $C$-secure octagram, because $v, v^{'}, v_2, v_1$ are all $C$-admissible as proved.\\
+        Notice that $v_3, v_4, u$ have degree at least three. From \textbf{Corollary 7.1.2.} informed that the total charge of $G$ is then at most -3, which follows $b \geq 3$. There must be another bad tetragram for $b > 1$. Hence, the final charge of $G$ is at most -4. It leads $b \geq 4$. Let $u^{'}$ be the unique neighbor of $u$ in $C \backslash z$. Notice that $v_3v_4$ and $uu^{'}$ are the only edges of $C$ 
+       incident to a bad tetragram. We conclude that $G$ has a vertex $v^{'}$ of degree three with neighbors $v, v_2, u^{'}$ and hence $v^{'}$ is a sink and $C$-admissible. And it implies that according to the definition of sink, $v_2$ is then $C$-admissible. Notice that $u^{'}v^{'}v_2v_3t$ bounds also a face which is similar to the 5-face $zv_4v_1vu$. It follows that $(v, v^{'}, v_2, v_1)$ is a $C$-secure octagram, because $v, v^{'}, v_2, v_1$ are all $C$-admissible as proved.\\
         All in all, in any case, there will be a $C$-secure multigrams in $G$, as claimed.
 
     \end{itemize}
